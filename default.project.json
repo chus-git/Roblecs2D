@@ -1,0 +1,38 @@
+{
+  "name": "roblecs",
+  "tree": {
+    "$className": "DataModel",
+
+    "ReplicatedStorage": {
+      "Shared": {
+        "$path": "src/Shared"
+      },
+      "GameEventBus": {
+        "$className": "RemoteEvent"
+      }
+    },
+
+    "ServerScriptService": {
+      "Server": {
+        "$path": "src/Server"
+      },
+      "Main": {
+        "$path": "src/Server/Main.server.lua"
+      }
+    },
+
+    "StarterPlayer": {
+      "StarterPlayerScripts": {
+        "Client": {
+          "$path": "src/Client"
+        },
+        "Main": {
+          "$path": "src/Client/Main.client.lua"
+        },
+        "Reset": {
+          "$path": "src/Client/Reset.client.lua"
+        }
+      }
+    }
+  }
+}
