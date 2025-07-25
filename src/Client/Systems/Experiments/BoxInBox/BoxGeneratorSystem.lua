@@ -10,8 +10,8 @@ end
 
 function BoxGeneratorSystem:update(dt)
 	self.timer -= dt
-	if self.timer < 0 and self.boxesGenerated < 100 then
-		self.timer += 0.1
+	if self.timer < 0 and self.boxesGenerated < 600 then
+		self.timer += 0.05
 
 		-- Distribución circular aleatoria
 		local angle = math.random() * 2 * math.pi

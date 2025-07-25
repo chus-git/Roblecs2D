@@ -10,7 +10,7 @@ local HALF_HEIGHT = 120
 
 function CollisionSystem:load()
 	self.balls = {}
-	self.gridSize = 20  -- tamaño celda configurable, ajústalo
+	self.gridSize = 10  -- tamaño celda configurable, ajústalo
 	self.grid = {}
 end
 

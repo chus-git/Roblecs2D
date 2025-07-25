@@ -21,7 +21,7 @@ function MainSystem:createBall(x: number, y: number)
 	local ballVelocity = self:addComponent(ball, Config.Components.Velocity, 0, 0)
 	local allMass = self:addComponent(ball, Config.Components.Mass, 35)
 	local ballInterpolation = self:addComponent(ball, Config.Components.Interpolation, x, y)
-	self.balls[ball] = self:addComponent(ball, Config.Components.Ball, 10)
+	self.balls[ball] = self:addComponent(ball, Config.Components.Ball, 4)
 	self:emit(Config.Events.BallCreated, ball)
 end
 

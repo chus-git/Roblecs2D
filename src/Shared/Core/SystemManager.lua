@@ -14,7 +14,6 @@ end
 
 function SystemManager:createSystem(System)
 	
-	print("system a crear: ", System)
 	if typeof(System) == "Instance" and System:IsA("ModuleScript") then
 		System = require(System)
 	end

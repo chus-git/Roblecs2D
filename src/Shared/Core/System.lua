@@ -77,7 +77,6 @@ end
 function System:destroyEntity(entityId)
 	self.componentManager:removeAllComponentsForEntity(entityId)
 	self.entityManager:destroyEntity(entityId)
-	print("Resultado tras destruir: ", self.componentManager.components.Position, #self.entityManager.entities)
 end
 
 -- ComponentManager proxies

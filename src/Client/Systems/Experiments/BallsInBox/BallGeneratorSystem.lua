@@ -10,7 +10,7 @@ end
 
 function BallGeneratorSystem:update(dt)
 	self.timer -= dt
-	if self.timer < 0 and self.ballsGenerated < 100 then
+	if self.timer < 0 and self.ballsGenerated < 1000 then
 		self.timer = self.timer + 0.1
 		local angle = math.random() * 2 * math.pi
 		local radius = math.sqrt(math.random()) * 100
