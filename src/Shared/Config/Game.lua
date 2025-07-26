@@ -1,7 +1,6 @@
 return {
 
-    FixedUPS = 60,				-- Actualizaciones por segundo fijas (update rate)
-	MaxUPF = 5,	-- Límite para evitar spiral of death
+    FixedUPS = 24,				-- Actualizaciones por segundo fijas (update rate)
 	MaxFPS = 240,				-- Máximo frames por segundo (render)
 	ShowFPS = true,			-- Mostrar FPS por consola (true/false)
 
@@ -16,14 +15,6 @@ return {
         Velocity = game.ReplicatedStorage.Shared.Components.Velocity.Name,
         Interpolation = game.ReplicatedStorage.Shared.Components.Interpolation.Name,
         Box = game.ReplicatedStorage.Shared.Components.Box.Name,
-    },
-
-    -- Event names to register
-    Events = {
-        CreateBall = "CreateBall",
-        BallCreated = "BallCreated",
-        CreateBox = "CreateBox",
-        BoxCreated = "BoxCreated",
     },
 
     Client = {

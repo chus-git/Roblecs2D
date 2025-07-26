@@ -1,14 +1,18 @@
-local Config = require(game.ReplicatedStorage.Shared.Config)
+local Config = require(game.ReplicatedStorage.Shared.Config.Game)
 
-local Utils = require(game.ReplicatedStorage.Shared.Core.Utils)
-local System = require(game.ReplicatedStorage.Shared.Core.System)
+local System = require(game.ReplicatedStorage.Core.System)
 
-local SceneManagerSystem = Utils.extend(System)
+
+local SceneManagerSystem = System.extend()
 
 function SceneManagerSystem:load()
 	
 	self.systems = {}
 	
+	self:on("LoadScene", function(scene)
+		self:loadScene(scene)
+	end)
+
 end
 
 function SceneManagerSystem:loadScene(systems)

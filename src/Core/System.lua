@@ -1,7 +1,24 @@
 local System = {}
 System.__index = System
 
+function System.extend()
+	
+	local SubClass = {}
+	SubClass.__index = SubClass
+
+	function SubClass.new(...)
+		local baseInstance = System.new(...)
+		return setmetatable(baseInstance, SubClass)
+	end
+
+	setmetatable(SubClass, { __index = System })
+
+	return SubClass
+	
+end
+
 function System.new(systemManager, eventBus, entityManager, componentManager, queryManager, viewframe, camera)
+
 	local self = setmetatable({}, System)
 	self.systemManager = systemManager
 	self.eventBus = eventBus
@@ -14,6 +31,7 @@ function System.new(systemManager, eventBus, entityManager, componentManager, qu
 	self._eventUnsubscribers = {}
 	
 	return self
+
 end
 
 function System:load()
@@ -81,17 +99,17 @@ end
 
 -- ComponentManager proxies
 
-function System:addComponent(entityId, componentName, ...)
+function System:addComponentToEntity(entityId, componentName, ...)
 	local componentName = componentName
-	return self.componentManager:addComponent(entityId, componentName, ...)
+	return self.componentManager:addComponentToEntity(entityId, componentName, ...)
 end
 
-function System:removeComponent(entityId, componentName)
-	return self.componentManager:removeComponent(entityId, componentName)
+function System:removeComponentForEntity(entityId, componentName)
+	return self.componentManager:removeComponentForEntity(entityId, componentName)
 end
 
-function System:getComponent(entityId, componentName)
-	return self.componentManager:getComponent(entityId, componentName)
+function System:getComponentForEntity(entityId, componentName)
+	return self.componentManager:getComponentForEntity(entityId, componentName)
 end
 
 -- QueryManager proxies

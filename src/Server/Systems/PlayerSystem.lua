@@ -1,13 +1,12 @@
 local Players = game:GetService("Players")
 
-local Config = require(game.ServerScriptService.ServerGame.ServerConfig)
-local Utils = require(game.ReplicatedStorage.Shared.Core.Utils)
-local System = require(game.ReplicatedStorage.Shared.Core.System)
+local System = require(game.ReplicatedStorage.Core.System)
 
-local PlayerSystem = Utils.extend(System)
+
+local PlayerSystem = System.extend()
 
 function PlayerSystem:load()
-	
+
 	self.players = {}
 
 	for _, player in ipairs(Players:GetPlayers()) do
@@ -15,30 +14,36 @@ function PlayerSystem:load()
 	end
 
 	Players.PlayerAdded:Connect(function(player)
-		self:addPlayer(player)
+		self:emit("PlayerConnected", player)
 	end)
 
 	Players.PlayerRemoving:Connect(function(player)
-		self:removePlayer(player)
+		self:emit("PlayerDisconnected", player)
 	end)
 	
 end
 
+function PlayerSystem:afterLoad()
+
+	self:on("PlayerConnected", function(player)
+		self:addPlayer(player)
+	end)
+
+	self:on("PlayerDisconnected", function(player)
+		self:removePlayer(player)
+	end)
+
+end
+
 function PlayerSystem:addPlayer(player)
-	
 	self.players[player] = {
 		id = player.UserId,
 		name = player.Name
 	}
-	print("[PlayerSystem] Jugador conectado:", player.Name)
-	
 end
 
 function PlayerSystem:removePlayer(player)
-	
 	self.players[player] = nil
-	print("[PlayerSystem] Jugador desconectado:", player.Name)
-	
 end
 
 return PlayerSystem

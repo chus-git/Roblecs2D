@@ -2,15 +2,15 @@ local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-local Engine = require(ReplicatedStorage.Shared.Core.Engine)
-local SystemManager = require(ReplicatedStorage.Shared.Core.SystemManager)
-local EventBus = require(ReplicatedStorage.Shared.Core.EventBus)
-local EntityManager = require(ReplicatedStorage.Shared.Core.EntityManager)
-local ComponentManager = require(ReplicatedStorage.Shared.Core.ComponentManager)
-local ComponentFactory = require(ReplicatedStorage.Shared.Core.ComponentFactory)
-local ComponentRegistry = require(ReplicatedStorage.Shared.Core.ComponentRegistry)
-local QueryManager = require(ReplicatedStorage.Shared.Core.QueryManager)
-local SystemManager = require(ReplicatedStorage.Shared.Core.SystemManager)
+local Engine = require(game.ReplicatedStorage.Core.Engine)
+local SystemManager = require(game.ReplicatedStorage.Core.SystemManager)
+local EventBus = require(game.ReplicatedStorage.Core.EventBus)
+local EntityManager = require(game.ReplicatedStorage.Core.EntityManager)
+local ComponentManager = require(game.ReplicatedStorage.Core.ComponentManager)
+local ComponentFactory = require(game.ReplicatedStorage.Core.ComponentFactory)
+local ComponentRegistry = require(game.ReplicatedStorage.Core.ComponentRegistry)
+local QueryManager = require(game.ReplicatedStorage.Core.QueryManager)
+local SystemManager = require(game.ReplicatedStorage.Core.SystemManager)
 
 local EngineFactory = {}
 
@@ -60,7 +60,6 @@ function EngineFactory.create(Config, remoteEvent)
 		viewport,
 		camera
 	)
-
 
 	-- If server, Config.Server.MainSystem, else Config.Client.MainSystem
 	local mainSystemPath = RunService:IsServer() and Config.Server.MainSystem or Config.Client.MainSystem

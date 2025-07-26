@@ -57,20 +57,17 @@ function Game:start()
 		RunService.RenderStepped:Connect(function(dt)
 			timeAccumulator += dt
 
-			local updatesThisFrame = 0
-			while timeAccumulator >= fixeddt and updatesThisFrame < self.config.MaxUPF do
+			-- Procesamos TODAS las actualizaciones necesarias (sin límite)
+			while timeAccumulator >= fixeddt do
 				self.engine:update(fixeddt)
 				timeAccumulator -= fixeddt
-				updatesThisFrame += 1
 			end
 
-			if updatesThisFrame == self.config.MaxUPF then
-				timeAccumulator = 0
-			end
-
+			-- alpha para interpolación
 			local alpha = math.clamp(timeAccumulator / fixeddt, 0, 1)
 			self.engine:render(dt, alpha)
 
+			-- Mostrar FPS (opcional)
 			if self.config.ShowFPS then
 				frameCount += 1
 				timeSinceLastFpsUpdate += dt
@@ -81,6 +78,7 @@ function Game:start()
 				end
 			end
 		end)
+
 	else
 		-- Servidor: solo actualización lógica en Stepped, sin render
 		RunService.Stepped:Connect(function(time, dt)

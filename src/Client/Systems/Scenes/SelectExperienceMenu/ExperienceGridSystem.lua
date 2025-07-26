@@ -1,7 +1,4 @@
-local Utils = require(game.ReplicatedStorage.Shared.Core.Utils)
-local System = require(game.ReplicatedStorage.Shared.Core.System)
-
-local ExperienceGridSystem = Utils.extend(System)
+local ExperienceGridSystem = require(game.ReplicatedStorage.Core.System).extend()
 
 local MiniGames = {
 	{Name = "Aventura", Image = "rbxassetid://12345678"},

@@ -1,9 +1,4 @@
-local Config = require(game.ReplicatedStorage.Shared.Config)
-
-local Utils = require(game.ReplicatedStorage.Shared.Core.Utils)
-local System = require(game.ReplicatedStorage.Shared.Core.System)
-
-local MainSystem = Utils.extend(System)
+local MainSystem = require(game.ReplicatedStorage.Core.System).extend()
 
 function MainSystem:load()
 	
@@ -16,39 +11,7 @@ function MainSystem:load()
 		script.Parent.Scenes.SelectExperienceMenu.ExperienceGridSystem,
 	}
 
-	local ballsInBox = {
-		script.Parent.Experiments.BallsInBox.MainSystem,
-		script.Parent.Experiments.BallsInBox.CollisionSystem,
-		script.Parent.Experiments.BallsInBox.GravitySystem,
-		script.Parent.Experiments.BallsInBox.PhysicsSystem,
-		script.Parent.Experiments.BallsInBox.BallRenderSystem,
-		script.Parent.Experiments.BallsInBox.BallGeneratorSystem,
-	}
-
-	local boxInBox = {
-		script.Parent.Experiments.BoxInBox.MainSystem,
-		script.Parent.Experiments.BoxInBox.BoxRenderSystem,
-		script.Parent.Experiments.BoxInBox.BoxGeneratorSystem,
-		script.Parent.Experiments.BoxInBox.PhysicsSystem,
-		script.Parent.Experiments.BoxInBox.CollisionSystem,
-	}
-
 	self.sceneManagerSystem:loadScene(selectExperienceMenu)
-
-	UserInputService.InputBegan:Connect(function(input, gameProcessed)
-		if gameProcessed then return end
-		if input.KeyCode == Enum.KeyCode.One then
-			self:emit("LoadScene", selectExperienceMenu)
-		elseif input.KeyCode == Enum.KeyCode.Two then
-			self:emit("LoadScene", ballsInBox)
-		elseif input.KeyCode == Enum.KeyCode.Three then
-			self:emit("LoadScene", boxInBox)
-		end
-	end)
-	
-	self:on("LoadScene", function(scene)
-		self.sceneManagerSystem:loadScene(scene)
-	end)
 	
 end
 

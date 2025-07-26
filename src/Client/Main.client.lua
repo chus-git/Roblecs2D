@@ -1,4 +1,4 @@
-local Config = require(game.ReplicatedStorage.Shared.Config)
-local game = require(game.ReplicatedStorage.Shared.Core.Game).new(Config)
+local Config = require(game.ReplicatedStorage.Shared.Config.Game)
+local game = require(game.ReplicatedStorage.Core.Game).new(Config)
 
 game:start()

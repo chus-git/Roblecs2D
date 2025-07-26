@@ -16,6 +16,10 @@ function Utils.extend(BaseClass)
 	
 end
 
+function Utils.extendSystem()
+	return Utils.extend(require(game.ReplicatedStorage.Core.System))
+end
+
 function Utils.lerp(a, b, t)
 	return a + (b - a) * t
 end

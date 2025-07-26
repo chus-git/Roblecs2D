@@ -8,18 +8,18 @@ function ComponentManager.new(componentFactory)
 	return self
 end
 
-function ComponentManager:addComponent(entity, componentName, ...)
+function ComponentManager:addComponentToEntity(entity, componentName, ...)
 	self.components[componentName] = self.components[componentName] or {}
 	local component = self.componentFactory:create(componentName, ...)
 	self.components[componentName][entity] = component
 	return component
 end
 
-function ComponentManager:removeComponent(entity, componentName)
+function ComponentManager:removeComponentForEntity(entity, componentName)
 	self.components[componentName][entity] = nil
 end
 
-function ComponentManager:getComponent(entity, componentName)
+function ComponentManager:getComponentForEntity(entity, componentName)
 	return self.components[componentName][entity]
 end
 
