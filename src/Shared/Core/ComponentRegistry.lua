@@ -1,4 +1,4 @@
-local Config = require(game.StarterPlayer.StarterPlayerScripts.Client.Config)
+
 
 local ComponentRegistry = {}
 ComponentRegistry.__index = ComponentRegistry
@@ -10,8 +10,6 @@ function ComponentRegistry.new(path)
 	print("[ComponentRegistry] Loading components...")
 	
 	self:loadComponents(path)
-	
-	local componentsFolder = Config.ComponentsPath
 
 	local count = 0
 	for _ in pairs(self.components) do

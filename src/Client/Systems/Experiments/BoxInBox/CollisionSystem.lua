@@ -1,4 +1,5 @@
-local Config = require(game.StarterPlayer.StarterPlayerScripts.Client.Config)
+local Config = require(game.ReplicatedStorage.Shared.Config)
+
 local Utils = require(game.ReplicatedStorage.Shared.Core.Utils)
 local System = require(game.ReplicatedStorage.Shared.Core.System)
 

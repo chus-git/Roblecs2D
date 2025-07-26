@@ -61,7 +61,11 @@ function EngineFactory.create(Config, remoteEvent)
 		camera
 	)
 
-	local mainSystem = systemManager:createSystem(Config.MainSystem)
+
+	-- If server, Config.Server.MainSystem, else Config.Client.MainSystem
+	local mainSystemPath = RunService:IsServer() and Config.Server.MainSystem or Config.Client.MainSystem
+
+	local mainSystem = systemManager:createSystem(mainSystemPath)
 
 	local engine = Engine.new(mainSystem, eventBus)
 
