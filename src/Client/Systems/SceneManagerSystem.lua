@@ -19,13 +19,13 @@ function SceneManagerSystem:loadScene(systems)
 		system:unload()
 	end
 	
-	--self.entityManager.entities = {}
-	--self.componentManager.components = {}
-	
 	self.systems = self:createSystems(systems)
 	
 	for _, system in ipairs(self.systems) do
 		system:load()
+	end
+
+	for _, system in ipairs(self.systems) do
 		system:afterLoad()
 	end
 	
