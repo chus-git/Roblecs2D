@@ -1,14 +1,13 @@
-local System = require(game.ReplicatedStorage.Core.System)
 local CircleComponent = require(game.ReplicatedStorage.Shared.Components.Circle)
 local InterpolationComponent = require(game.ReplicatedStorage.Shared.Components.Interpolation)
 local BallCreated = require(game.ReplicatedStorage.Shared.Events.BallCreated)
 
-local BallGeneratorSystem = System.extend()
+local BallGeneratorSystem = require(game.ReplicatedStorage.Core.System).extend()
 
 function BallGeneratorSystem:afterLoad()
 
-    local numBalls = 25
-    local radius = 4
+    local numBalls = 100
+    local radius = 3
     local yPosition = 100
     local spacing = radius * 2.2
     local minDistance = spacing * 1.5

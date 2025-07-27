@@ -36,6 +36,7 @@ function Utils.wrapEvent(eventName: string, constructor: ((...any) -> ...any)?)
 			name = eventName
 		}
 	})
+	
 end
 
 function Utils.wrapComponent(componentName, constructor)

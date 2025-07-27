@@ -1,5 +1,9 @@
-local wrapEvent = require(game.ReplicatedStorage.Core.Utils).wrapEvent
+local PlayerConnected = require(game.ReplicatedStorage.Core.Event).extend()
 
-return wrapEvent("PlayerConnected", function(playerId: number, playerName: string)
+PlayerConnected.name = "PlayerConnected"
+
+PlayerConnected.constructor = function(playerId: number, playerName: string)
 	return playerId, playerName
-end)
+end
+
+return PlayerConnected

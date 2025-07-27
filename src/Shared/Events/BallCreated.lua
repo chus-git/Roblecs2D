@@ -1,5 +1,9 @@
-local wrapEvent = require(game.ReplicatedStorage.Core.Utils).wrapEvent
+local BallCreated = require(game.ReplicatedStorage.Core.Event).extend()
 
-return wrapEvent("BallCreated", function(ballId: number)
+BallCreated.name = "BallCreated"
+
+BallCreated.constructor = function(ballId: number)
 	return ballId
-end)
+end
+
+return BallCreated

@@ -1,12 +1,13 @@
-local wrapComponent = require(game.ReplicatedStorage.Core.Utils).wrapComponent
+local Circle = require(game.ReplicatedStorage.Core.Component).extend()
 
-return wrapComponent(
-	"Circle",
-	function(radius: number, color: Color3, position: Vector2)
-		return {
-			radius = radius,
-			color = color,
-			position = position,
-		}
-	end
-)
+Circle.name = "Circle"
+
+Circle.constructor = function(radius: number, color: Color3, position: Vector2)
+	return {
+		radius = radius,
+		color = color,
+		position = position,
+	}
+end
+
+return Circle

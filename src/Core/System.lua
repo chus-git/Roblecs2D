@@ -1,20 +1,10 @@
+local Utils = require(game.ReplicatedStorage.Core.Utils)
+
 local System = {}
 System.__index = System
 
 function System.extend()
-	
-	local SubClass = {}
-	SubClass.__index = SubClass
-
-	function SubClass.new(...)
-		local baseInstance = System.new(...)
-		return setmetatable(baseInstance, SubClass)
-	end
-
-	setmetatable(SubClass, { __index = System })
-
-	return SubClass
-	
+	return Utils.extend(System)
 end
 
 function System.new(systemManager, eventBus, entityManager, componentManager, queryManager, viewframe, camera)

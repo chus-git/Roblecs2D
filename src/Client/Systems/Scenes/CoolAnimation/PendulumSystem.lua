@@ -3,7 +3,7 @@ local CircleComponent = require(game.ReplicatedStorage.Shared.Components.Circle)
 local PendulumSystem = require(game.ReplicatedStorage.Core.System).extend()
 
 local GRAVITY = 9.81
-local VELOCITY_MULTIPLIER = 20 -- para acelerar la oscilación
+local VELOCITY_MULTIPLIER = 1 -- para acelerar la oscilación
 
 function PendulumSystem:load()
 	self.balls = {}
@@ -23,7 +23,7 @@ function PendulumSystem:addBall(ballEntity)
 	local ballState = {
 		entity = ballEntity,
 		length = L,
-		theta = math.pi/2,  -- 45 grados inicio
+		theta = math.pi/2,
 		omega = 0,
 		fixed = (L < 0.001) -- si L muy pequeño, bola fija
 	}

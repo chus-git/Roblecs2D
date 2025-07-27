@@ -1,3 +1,9 @@
-local wrapEvent = require(game.ReplicatedStorage.Core.Utils).wrapEvent
+local PlayerDisconnected = require(game.ReplicatedStorage.Core.Event).extend()
 
-return wrapEvent("PlayerDisconnected")
+PlayerDisconnected.name = "PlayerDisconnected"
+
+PlayerDisconnected.constructor = function(playerId: number)
+	return playerId
+end
+
+return PlayerDisconnected
