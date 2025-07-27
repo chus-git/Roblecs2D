@@ -7,9 +7,9 @@ local EngineFactory = require(script.Parent.EngineFactory)
 local Game = {}
 Game.__index = Game
 
-function Game.new(config)
+function Game.new(MainSystemModule, config)
 	local self = setmetatable({}, Game)
-	self.engine = EngineFactory.create(config, remoteEvent)
+	self.engine = EngineFactory.create(MainSystemModule, config, remoteEvent)
 	self.config = config
 	self:setupNetworking()
 	return self

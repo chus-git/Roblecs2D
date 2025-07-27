@@ -5,8 +5,6 @@ function MainSystem:load()
 	self.sceneManagerSystem = self:createSystem(script.Parent.SceneManagerSystem)
 	self.sceneManagerSystem:load()
 
-	local UserInputService = game:GetService("UserInputService")
-
 	local selectExperienceMenu = {
 		script.Parent.Scenes.SelectExperienceMenu.ExperienceGridSystem,
 	}

@@ -11,6 +11,7 @@ end
 
 function Engine:load()
 	self.mainSystem:load()
+	self.mainSystem:afterLoad()
 end
 
 function Engine:update(dt: number)

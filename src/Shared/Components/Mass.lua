@@ -1,5 +1,5 @@
 return function(mass: number)
-	return {
+	return "Mass",{
 		value = mass
 	}
 end

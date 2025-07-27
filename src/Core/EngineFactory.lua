@@ -7,20 +7,18 @@ local SystemManager = require(game.ReplicatedStorage.Core.SystemManager)
 local EventBus = require(game.ReplicatedStorage.Core.EventBus)
 local EntityManager = require(game.ReplicatedStorage.Core.EntityManager)
 local ComponentManager = require(game.ReplicatedStorage.Core.ComponentManager)
-local ComponentFactory = require(game.ReplicatedStorage.Core.ComponentFactory)
 local ComponentRegistry = require(game.ReplicatedStorage.Core.ComponentRegistry)
 local QueryManager = require(game.ReplicatedStorage.Core.QueryManager)
 local SystemManager = require(game.ReplicatedStorage.Core.SystemManager)
 
 local EngineFactory = {}
 
-function EngineFactory.create(Config, remoteEvent)
+function EngineFactory.create(MainSystemModule, remoteEvent)
 
 	-- Crear EventBus
-	local eventBus = EventBus.new(Config.Events, remoteEvent)
+	local eventBus = EventBus.new(remoteEvent)
 	local entityManager = EntityManager.new()
-	local componentRegistry = ComponentRegistry.new(Config.ComponentsPath)
-	local componentManager = ComponentManager.new(ComponentFactory.new(componentRegistry.components))
+	local componentManager = ComponentManager.new()
 	local queryManager = QueryManager.new(entityManager, componentManager)
 
 	local viewport, camera
@@ -60,11 +58,8 @@ function EngineFactory.create(Config, remoteEvent)
 		viewport,
 		camera
 	)
-
-	-- If server, Config.Server.MainSystem, else Config.Client.MainSystem
-	local mainSystemPath = RunService:IsServer() and Config.Server.MainSystem or Config.Client.MainSystem
-
-	local mainSystem = systemManager:createSystem(mainSystemPath)
+	
+	local mainSystem = systemManager:createSystem(MainSystemModule)
 
 	local engine = Engine.new(mainSystem, eventBus)
 

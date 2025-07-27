@@ -1,25 +1,25 @@
 local ComponentManager = {}
 ComponentManager.__index = ComponentManager
 
-function ComponentManager.new(componentFactory)
+function ComponentManager.new()
 	local self = setmetatable({}, ComponentManager)
-	self.componentFactory = componentFactory
 	self.components = {}
 	return self
 end
 
-function ComponentManager:addComponentToEntity(entity, componentName, ...)
+function ComponentManager:addComponent(entity, ...)
+	local componentName, component = ...
+	assert(type(componentName) == "string" and type(component) == "table")
 	self.components[componentName] = self.components[componentName] or {}
-	local component = self.componentFactory:create(componentName, ...)
 	self.components[componentName][entity] = component
 	return component
 end
 
-function ComponentManager:removeComponentForEntity(entity, componentName)
+function ComponentManager:removeComponent(entity, componentName)
 	self.components[componentName][entity] = nil
 end
 
-function ComponentManager:getComponentForEntity(entity, componentName)
+function ComponentManager:getComponent(entity, componentName)
 	return self.components[componentName][entity]
 end
 
@@ -27,7 +27,7 @@ function ComponentManager:hasComponent(entity, componentName)
 	return self.components[componentName] and self.components[componentName][entity] ~= nil
 end
 
-function ComponentManager:removeAllComponentsForEntity(entity)
+function ComponentManager:removeAllComponents(entity)
 	for componentName, entityMap in pairs(self.components) do
 		entityMap[entity] = nil
 	end

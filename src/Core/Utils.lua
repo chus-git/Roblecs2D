@@ -16,8 +16,26 @@ function Utils.extend(BaseClass)
 	
 end
 
-function Utils.extendSystem()
-	return Utils.extend(require(game.ReplicatedStorage.Core.System))
+function Utils.wrapEvent(eventName: string, constructor: ((...any) -> ...any)?)
+	local wrapper = {}
+
+	function wrapper:__call(...)
+		if constructor then
+			return eventName, constructor(...)
+		else
+			return eventName, nil
+		end
+	end
+
+	return setmetatable(wrapper, {
+		__call = wrapper.__call,
+		__tostring = function()
+			return eventName
+		end,
+		__index = {
+			name = eventName
+		}
+	})
 end
 
 function Utils.lerp(a, b, t)

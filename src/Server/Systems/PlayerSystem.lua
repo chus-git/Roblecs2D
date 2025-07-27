@@ -1,49 +1,45 @@
 local Players = game:GetService("Players")
+local PlayerConnectedEvent = require(game.ReplicatedStorage.Shared.Events.PlayerConnected)
+local PlayerDisconnetedEvent = require(game.ReplicatedStorage.Shared.Events.PlayerDisconnected)
 
-local System = require(game.ReplicatedStorage.Core.System)
-
-
-local PlayerSystem = System.extend()
+local PlayerSystem = require(game.ReplicatedStorage.Core.System).extend()
 
 function PlayerSystem:load()
 
 	self.players = {}
 
-	for _, player in ipairs(Players:GetPlayers()) do
-		self:addPlayer(player)
-	end
-
-	Players.PlayerAdded:Connect(function(player)
-		self:emit("PlayerConnected", player)
+	self:on(PlayerConnectedEvent, function(playerId, playerName)
+		self:addPlayer(playerId, playerName)
 	end)
 
-	Players.PlayerRemoving:Connect(function(player)
-		self:emit("PlayerDisconnected", player)
+	self:on(PlayerDisconnetedEvent, function(playerId)
+		self:removePlayer(playerId)
 	end)
 	
 end
 
 function PlayerSystem:afterLoad()
 
-	self:on("PlayerConnected", function(player)
-		self:addPlayer(player)
+	Players.PlayerAdded:Connect(function(player)
+		self:emit(PlayerConnectedEvent(player.UserId, player.Name))
 	end)
 
-	self:on("PlayerDisconnected", function(player)
-		self:removePlayer(player)
+	Players.PlayerRemoving:Connect(function(player)
+		self:emit(PlayerDisconnetedEvent(player.UserId))
 	end)
 
 end
 
-function PlayerSystem:addPlayer(player)
-	self.players[player] = {
-		id = player.UserId,
-		name = player.Name
+function PlayerSystem:addPlayer(playerId: number, playerName: string)
+	self.players[playerId] = {
+		id = playerId,
+		name = playerName
 	}
 end
 
-function PlayerSystem:removePlayer(player)
-	self.players[player] = nil
+function PlayerSystem:removePlayer(playerId)
+	print("[PlayerSystem] Remove player:", playerId)
+	self.players[playerId] = nil
 end
 
 return PlayerSystem

@@ -1,5 +1,5 @@
 return function(x: number, y:number)
-	return {
+	return "Velocity", {
 		x = x,
 		y = y
 	}

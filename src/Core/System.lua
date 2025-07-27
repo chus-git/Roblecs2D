@@ -77,13 +77,25 @@ end
 
 -- EventBus proxies
 
-function System:emit(eventName, ...)
-	return self.eventBus:emit(eventName, ...)
+function System:emit(eventFn, ...)
+	return self.eventBus:emit(eventFn, ...)
 end
 
-function System:on(eventName, callback)
-	local unsubscribe = self.eventBus:on(eventName, callback)
+function System:on(eventFn, callback)
+	local unsubscribe = self.eventBus:on(eventFn, callback)
 	table.insert(self._eventUnsubscribers, unsubscribe)
+end
+
+function System:emitToServer(eventFn, ...)
+	return self.eventBus:emitToServer(eventFn, ...)
+end
+
+function System:emitToClient(client, eventFn, ...)
+	return self.eventBus:emitToClient(client, eventFn, ...)
+end
+
+function System:emitToAllClients(eventFn, ...)
+	return self.eventBus:emitToAllClients(eventFn, ...)
 end
 
 -- EntityManager proxies
@@ -93,23 +105,23 @@ function System:createEntity()
 end
 
 function System:destroyEntity(entityId)
-	self.componentManager:removeAllComponentsForEntity(entityId)
+	self.componentManager:removeAllComponents(entityId)
 	self.entityManager:destroyEntity(entityId)
 end
 
 -- ComponentManager proxies
 
-function System:addComponentToEntity(entityId, componentName, ...)
+function System:addComponent(entityId, componentName, ...)
 	local componentName = componentName
-	return self.componentManager:addComponentToEntity(entityId, componentName, ...)
+	return self.componentManager:addComponent(entityId, componentName, ...)
 end
 
-function System:removeComponentForEntity(entityId, componentName)
-	return self.componentManager:removeComponentForEntity(entityId, componentName)
+function System:removeComponent(entityId, componentName)
+	return self.componentManager:removeComponent(entityId, componentName)
 end
 
-function System:getComponentForEntity(entityId, componentName)
-	return self.componentManager:getComponentForEntity(entityId, componentName)
+function System:getComponent(entityId, componentName)
+	return self.componentManager:getComponent(entityId, componentName)
 end
 
 -- QueryManager proxies

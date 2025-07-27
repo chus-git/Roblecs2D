@@ -1,5 +1,5 @@
 return function(width: number, height: number)
-	return {
+	return "Box",{
 		width = width,
 		height = height
 	}
