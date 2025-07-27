@@ -7,20 +7,18 @@ function ComponentManager.new()
 	return self
 end
 
-function ComponentManager:addComponent(entity, ...)
-	local componentName, component = ...
-	assert(type(componentName) == "string" and type(component) == "table")
+function ComponentManager:addComponent(entity, componentName, componentData)
 	self.components[componentName] = self.components[componentName] or {}
-	self.components[componentName][entity] = component
-	return component
+	self.components[componentName][entity] = componentData
+	return componentData
 end
 
-function ComponentManager:removeComponent(entity, componentName)
-	self.components[componentName][entity] = nil
+function ComponentManager:removeComponent(entity, component)
+	self.components[component.name][entity] = nil
 end
 
-function ComponentManager:getComponent(entity, componentName)
-	return self.components[componentName][entity]
+function ComponentManager:getComponent(entity, component)
+	return self.components[component.name][entity]
 end
 
 function ComponentManager:hasComponent(entity, componentName)

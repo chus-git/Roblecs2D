@@ -5,11 +5,11 @@ function MainSystem:load()
 	self.sceneManagerSystem = self:createSystem(script.Parent.SceneManagerSystem)
 	self.sceneManagerSystem:load()
 
-	local selectExperienceMenu = {
-		script.Parent.Scenes.SelectExperienceMenu.ExperienceGridSystem,
+	local system = {
+		script.Parent.Scenes.CoolAnimation.BallGeneratorSystem,
 	}
 
-	self.sceneManagerSystem:loadScene(selectExperienceMenu)
+	self.sceneManagerSystem:loadScene(system)
 	
 end
 

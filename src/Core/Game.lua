@@ -9,7 +9,7 @@ Game.__index = Game
 
 function Game.new(MainSystemModule, config)
 	local self = setmetatable({}, Game)
-	self.engine = EngineFactory.create(MainSystemModule, config, remoteEvent)
+	self.engine = EngineFactory.create(MainSystemModule, remoteEvent)
 	self.config = config
 	self:setupNetworking()
 	return self

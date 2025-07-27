@@ -7,7 +7,6 @@ local SystemManager = require(game.ReplicatedStorage.Core.SystemManager)
 local EventBus = require(game.ReplicatedStorage.Core.EventBus)
 local EntityManager = require(game.ReplicatedStorage.Core.EntityManager)
 local ComponentManager = require(game.ReplicatedStorage.Core.ComponentManager)
-local ComponentRegistry = require(game.ReplicatedStorage.Core.ComponentRegistry)
 local QueryManager = require(game.ReplicatedStorage.Core.QueryManager)
 local SystemManager = require(game.ReplicatedStorage.Core.SystemManager)
 

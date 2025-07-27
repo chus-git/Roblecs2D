@@ -31,6 +31,7 @@ function PlayerSystem:afterLoad()
 end
 
 function PlayerSystem:addPlayer(playerId: number, playerName: string)
+	print("[PlayerSystem] Player connected:", playerId, playerName)
 	self.players[playerId] = {
 		id = playerId,
 		name = playerName
@@ -38,7 +39,7 @@ function PlayerSystem:addPlayer(playerId: number, playerName: string)
 end
 
 function PlayerSystem:removePlayer(playerId)
-	print("[PlayerSystem] Remove player:", playerId)
+	print("[PlayerSystem] Player disconnected:", playerId)
 	self.players[playerId] = nil
 end
 

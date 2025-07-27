@@ -111,17 +111,17 @@ end
 
 -- ComponentManager proxies
 
-function System:addComponent(entityId, componentName, ...)
+function System:addComponent(entityId, componentName, componentData)
 	local componentName = componentName
-	return self.componentManager:addComponent(entityId, componentName, ...)
+	return self.componentManager:addComponent(entityId, componentName, componentData)
 end
 
 function System:removeComponent(entityId, componentName)
 	return self.componentManager:removeComponent(entityId, componentName)
 end
 
-function System:getComponent(entityId, componentName)
-	return self.componentManager:getComponent(entityId, componentName)
+function System:getComponent(entityId, ...)
+	return self.componentManager:getComponent(entityId, ...)
 end
 
 -- QueryManager proxies

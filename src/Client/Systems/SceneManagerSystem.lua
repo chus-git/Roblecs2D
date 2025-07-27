@@ -1,4 +1,4 @@
-local Config = require(game.ReplicatedStorage.Shared.Config.Game)
+local Config = require(game.ReplicatedStorage.Shared.Config)
 
 local System = require(game.ReplicatedStorage.Core.System)
 

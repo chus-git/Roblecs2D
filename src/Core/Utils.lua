@@ -38,6 +38,29 @@ function Utils.wrapEvent(eventName: string, constructor: ((...any) -> ...any)?)
 	})
 end
 
+function Utils.wrapComponent(componentName, constructor)
+
+	local wrapper = {}
+
+	function wrapper:__call(...)
+		if constructor then
+			return componentName, constructor(...)
+		else
+			return componentName, nil
+		end
+	end
+
+	setmetatable(wrapper, {
+		__call = wrapper.__call,
+		__tostring = function() return componentName end,
+		__index = {
+			name = componentName
+		}
+	})
+
+	return wrapper
+end
+
 function Utils.lerp(a, b, t)
 	return a + (b - a) * t
 end
