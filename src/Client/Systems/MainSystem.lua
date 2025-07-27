@@ -7,6 +7,8 @@ function MainSystem:load()
 
 	local system = {
 		script.Parent.Scenes.CoolAnimation.BallGeneratorSystem,
+		script.Parent.Scenes.CoolAnimation.PendulumSystem,
+		script.Parent.Scenes.CoolAnimation.RenderSystem,
 	}
 
 	self.sceneManagerSystem:loadScene(system)
