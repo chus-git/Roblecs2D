@@ -21,6 +21,10 @@ function ComponentManager:getComponent(entity, component)
 	return self.components[component.name][entity]
 end
 
+function ComponentManager:getEntitiesWithComponent(componentName)
+	return self.components[componentName]
+end
+
 function ComponentManager:hasComponent(entity, componentName)
 	return self.components[componentName] and self.components[componentName][entity] ~= nil
 end

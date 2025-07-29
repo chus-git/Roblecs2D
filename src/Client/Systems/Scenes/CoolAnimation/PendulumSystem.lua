@@ -37,6 +37,7 @@ function PendulumSystem:addBall(ballEntity)
 end
 
 function PendulumSystem:update(dt)
+    print(dt)
     local g = GRAVITY
     local lengthExponent = 0.05 -- ajusta entre 0 (igual frecuencia) y 1 (frecuencia real)
 

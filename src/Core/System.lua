@@ -7,14 +7,28 @@ function System.extend()
 	return Utils.extend(System)
 end
 
-function System.new(systemManager, eventManager, entityManager, componentManager, queryManager, viewframe, camera)
+function System.create(SystemModuleOrList, eventManager, entityManager, componentManager, viewport, camera)
+	local function instantiate(module)
+		return require(module).new(eventManager, entityManager, componentManager, viewport, camera)
+	end
+	if typeof(SystemModuleOrList) == "table" and #SystemModuleOrList > 0 then
+		local systems = {}
+		for _, mod in ipairs(SystemModuleOrList) do
+			table.insert(systems, instantiate(mod))
+		end
+		return systems
+	else
+		return instantiate(SystemModuleOrList)
+	end
+end
+
+
+function System.new(eventManager, entityManager, componentManager, viewframe, camera)
 
 	local self = setmetatable({}, System)
-	self.systemManager = systemManager
 	self.eventManager = eventManager
 	self.entityManager = entityManager
 	self.componentManager = componentManager
-	self.queryManager = queryManager
 	self.viewport = viewframe
 	self.camera = camera
 	
@@ -55,16 +69,6 @@ function System:unload()
 	self._eventUnsubscribers = {}
 end
 
--- SystemManager proxies
-
-function System:createSystem(SystemModule)
-	return self.systemManager:createSystem(SystemModule)
-end
-
-function System:createSystems(SystemModules)
-	return self.systemManager:createSystems(SystemModules)
-end
-
 -- EventManager proxies
 
 function System:emit(eventFn, ...)
@@ -102,7 +106,6 @@ end
 -- ComponentManager proxies
 
 function System:addComponent(entityId, componentName, componentData)
-	local componentName = componentName
 	return self.componentManager:addComponent(entityId, componentName, componentData)
 end
 
@@ -114,18 +117,8 @@ function System:getComponent(entityId, ...)
 	return self.componentManager:getComponent(entityId, ...)
 end
 
--- QueryManager proxies
-
-function System:getEntitiesWithComponents(...)
-	return self.queryManager:getEntitiesWithComponents(...)
-end
-
 function System:getEntitiesWithComponent(componentName)
-	return self.queryManager:getEntitiesWithComponent(componentName)
-end
-
-function System:getEntity(componentName)
-	return self:getEntitiesWithComponent(componentName)[1]
+	return self.componentManager:getEntitiesWithComponent(componentName)
 end
 
 return System

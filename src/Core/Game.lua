@@ -11,6 +11,7 @@ function Game.new()
 	local self = setmetatable({}, Game)
 	self.engine = EngineFactory.create(remoteEvent)
 	self:setupNetworking()
+	self:start()
 	return self
 end
 
@@ -29,7 +30,7 @@ function Game:setupNetworking()
 end
 
 function Game:start()
-	
+
 	local timeAccumulator = 0
 	local fixeddt = 1 / 24
 

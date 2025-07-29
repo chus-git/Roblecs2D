@@ -1,9 +1,4 @@
-local Config = require(game.ReplicatedStorage.Shared.Config)
-
-local System = require(game.ReplicatedStorage.Core.System)
-
-
-local SceneManagerSystem = System.extend()
+local SceneManagerSystem = require(game.ReplicatedStorage.Core.System).extend()
 
 function SceneManagerSystem:load()
 	
@@ -15,7 +10,7 @@ function SceneManagerSystem:load()
 
 end
 
-function SceneManagerSystem:loadScene(systems)
+function SceneManagerSystem:loadScene(SystemModules)
 
 	print("[SceneManagerSystem] Loading scene")
 
@@ -23,7 +18,7 @@ function SceneManagerSystem:loadScene(systems)
 		system:unload()
 	end
 	
-	self.systems = self:createSystems(systems)
+	self.systems = self.create(SystemModules, self.eventManager, self.entityManager, self.componentManager, self.viewport, self.camera)
 	
 	for _, system in ipairs(self.systems) do
 		system:load()

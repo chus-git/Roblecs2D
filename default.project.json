@@ -18,9 +18,6 @@
     "ServerScriptService": {
       "Server": {
         "$path": "src/Server"
-      },
-      "Main": {
-        "$path": "src/Server/Main.server.lua"
       }
     },
 
@@ -28,12 +25,6 @@
       "StarterPlayerScripts": {
         "Client": {
           "$path": "src/Client"
-        },
-        "Main": {
-          "$path": "src/Client/Main.client.lua"
-        },
-        "Reset": {
-          "$path": "src/Client/Reset.client.lua"
         }
       }
     }

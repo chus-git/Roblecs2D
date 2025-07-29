@@ -3,12 +3,10 @@ local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local Engine = require(game.ReplicatedStorage.Core.Engine)
-local SystemManager = require(game.ReplicatedStorage.Core.SystemManager)
+local System = require(game.ReplicatedStorage.Core.System)
 local EventManager = require(game.ReplicatedStorage.Core.EventManager)
 local EntityManager = require(game.ReplicatedStorage.Core.EntityManager)
 local ComponentManager = require(game.ReplicatedStorage.Core.ComponentManager)
-local QueryManager = require(game.ReplicatedStorage.Core.QueryManager)
-local SystemManager = require(game.ReplicatedStorage.Core.SystemManager)
 
 local EngineFactory = {}
 
@@ -18,7 +16,6 @@ function EngineFactory.create(remoteEvent)
 	local eventManager = EventManager.new(remoteEvent)
 	local entityManager = EntityManager.new()
 	local componentManager = ComponentManager.new()
-	local queryManager = QueryManager.new(entityManager, componentManager)
 
 	local viewport, camera
 
@@ -49,15 +46,6 @@ function EngineFactory.create(remoteEvent)
 		
 	end
 	
-	local systemManager = SystemManager.new(
-		eventManager,
-		entityManager,
-		componentManager,
-		queryManager,
-		viewport,
-		camera
-	)
-	
 	local MainSystemModule
 
 	if RunService:IsServer() then
@@ -66,9 +54,19 @@ function EngineFactory.create(remoteEvent)
 		MainSystemModule = game.StarterPlayer.StarterPlayerScripts.Client.Systems.MainSystem
 	end
 
-	local mainSystem = systemManager:createSystem(MainSystemModule)
+	local mainSystem = System.create(
+		MainSystemModule,
+		eventManager,
+		entityManager,
+		componentManager,
+		viewport,
+		camera
+	)
 
-	local engine = Engine.new(mainSystem, eventManager)
+	local engine = Engine.new(
+		mainSystem,
+		eventManager
+	)
 
 	return engine
 end
