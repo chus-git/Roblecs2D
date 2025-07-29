@@ -1,9 +1,9 @@
 local SystemManager = {}
 SystemManager.__index = SystemManager
 
-function SystemManager.new(eventBus, entityManager, componentManager, queryManager, viewframe, camera)
+function SystemManager.new(eventManager, entityManager, componentManager, queryManager, viewframe, camera)
 	local self = setmetatable({}, SystemManager)
-	self.eventBus = eventBus
+	self.eventManager = eventManager
 	self.entityManager = entityManager
 	self.componentManager = componentManager
 	self.queryManager = queryManager
@@ -20,7 +20,7 @@ function SystemManager:createSystem(System)
 
 	local system = System.new(
 		self,
-		self.eventBus,
+		self.eventManager,
 		self.entityManager,
 		self.componentManager,
 		self.queryManager,

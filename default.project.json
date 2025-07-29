@@ -10,7 +10,7 @@
       "Shared": {
         "$path": "src/Shared"
       },
-      "GameEventBus": {
+      "GameEventManager": {
         "$className": "RemoteEvent"
       }
     },

@@ -1,17 +1,17 @@
 local RunService = game:GetService("RunService")
 
-local EventBus = {}
-EventBus.__index = EventBus
+local EventManager = {}
+EventManager.__index = EventManager
 
-function EventBus.new(remoteEvent)
-	local self = setmetatable({}, EventBus)
+function EventManager.new(remoteEvent)
+	local self = setmetatable({}, EventManager)
 	self.listeners = {}
 	self.queue = {}
 	self.remoteEvent = remoteEvent
 	return self
 end
 
-function EventBus:on(event, callback)
+function EventManager:on(event, callback)
 
 	local eventName = typeof(event) == "string" and event or tostring(event)
 
@@ -39,64 +39,38 @@ function EventBus:on(event, callback)
 
 end
 
-function EventBus:emit(event, ...)
-
-	local eventName, args
-
+function EventManager:_resolveEvent(event, ...)
 	if typeof(event) == "string" then
-		eventName = event
-		args = {...}
+		return event, { ... }
 	else
-		eventName, args = event(...)
+		return event(...)
 	end
+end
 
+function EventManager:emit(event, ...)
+	local eventName, args = self:_resolveEvent(event, ...)
 	table.insert(self.queue, {
 		name = eventName,
 		args = args
 	})
-
 end
 
-function EventBus:emitToServer(event, ...)
-	local eventName, args
-
-	if typeof(event) == "string" then
-		eventName = event
-		args = { ... }
-	else
-		eventName, args = event(...)
-	end
-
+function EventManager:emitToServer(event, ...)
+	local eventName, args = self:_resolveEvent(event, ...)
 	self.remoteEvent:FireServer(eventName, args)
 end
 
-function EventBus:emitToClient(client, event, ...)
-	local eventName, args
-
-	if typeof(event) == "string" then
-		eventName = event
-		args = { ... }
-	else
-		eventName, args = event(...)
-	end
-
+function EventManager:emitToClient(client, event, ...)
+	local eventName, args = self:_resolveEvent(event, ...)
 	self.remoteEvent:FireClient(client, eventName, args)
 end
 
-function EventBus:emitToAllClients(event, ...)
-	local eventName, args
-
-	if typeof(event) == "string" then
-		eventName = event
-		args = { ... }
-	else
-		eventName, args = event(...)
-	end
-
+function EventManager:emitToAllClients(event, ...)
+	local eventName, args = self:_resolveEvent(event, ...)
 	self.remoteEvent:FireAllClients(eventName, args)
 end
 
-function EventBus:flush()
+function EventManager:flush()
 	for _, event in ipairs(self.queue) do
 		local handlers = self.listeners[event.name]
 		if handlers then
@@ -108,4 +82,4 @@ function EventBus:flush()
 	table.clear(self.queue)
 end
 
-return EventBus
+return EventManager

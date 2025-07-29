@@ -1,10 +1,10 @@
 local Engine = {}
 Engine.__index = Engine
 
-function Engine.new(mainSystem, eventBus)
+function Engine.new(mainSystem, eventManager)
 	local self = setmetatable({}, Engine)
 	self.mainSystem = mainSystem
-	self.eventBus = eventBus
+	self.eventManager = eventManager
 	self:load()
 	return self
 end
@@ -18,7 +18,7 @@ function Engine:update(dt: number)
 	self.mainSystem:beforeUpdate(dt)
 	self.mainSystem:update(dt)
 	self.mainSystem:afterUpdate(dt)
-	self.eventBus:flush()
+	self.eventManager:flush()
 end
 
 function Engine:render(dt: number, alpha: number)

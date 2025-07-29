@@ -7,11 +7,11 @@ function System.extend()
 	return Utils.extend(System)
 end
 
-function System.new(systemManager, eventBus, entityManager, componentManager, queryManager, viewframe, camera)
+function System.new(systemManager, eventManager, entityManager, componentManager, queryManager, viewframe, camera)
 
 	local self = setmetatable({}, System)
 	self.systemManager = systemManager
-	self.eventBus = eventBus
+	self.eventManager = eventManager
 	self.entityManager = entityManager
 	self.componentManager = componentManager
 	self.queryManager = queryManager
@@ -57,35 +57,35 @@ end
 
 -- SystemManager proxies
 
-function System:createSystem(System)
-	return self.systemManager:createSystem(System)
+function System:createSystem(SystemModule)
+	return self.systemManager:createSystem(SystemModule)
 end
 
-function System:createSystems(Systems)
-	return self.systemManager:createSystems(Systems)
+function System:createSystems(SystemModules)
+	return self.systemManager:createSystems(SystemModules)
 end
 
--- EventBus proxies
+-- EventManager proxies
 
 function System:emit(eventFn, ...)
-	return self.eventBus:emit(eventFn, ...)
+	return self.eventManager:emit(eventFn, ...)
 end
 
 function System:on(eventFn, callback)
-	local unsubscribe = self.eventBus:on(eventFn, callback)
+	local unsubscribe = self.eventManager:on(eventFn, callback)
 	table.insert(self._eventUnsubscribers, unsubscribe)
 end
 
 function System:emitToServer(eventFn, ...)
-	return self.eventBus:emitToServer(eventFn, ...)
+	return self.eventManager:emitToServer(eventFn, ...)
 end
 
 function System:emitToClient(client, eventFn, ...)
-	return self.eventBus:emitToClient(client, eventFn, ...)
+	return self.eventManager:emitToClient(client, eventFn, ...)
 end
 
 function System:emitToAllClients(eventFn, ...)
-	return self.eventBus:emitToAllClients(eventFn, ...)
+	return self.eventManager:emitToAllClients(eventFn, ...)
 end
 
 -- EntityManager proxies
