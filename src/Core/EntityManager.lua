@@ -18,8 +18,4 @@ function EntityManager:destroyEntity(id)
 	self.entities[id] = nil
 end
 
-function EntityManager:isEntityAlive(id)
-	return self.entities[id] ~= nil
-end
-
 return EntityManager

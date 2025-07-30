@@ -69,15 +69,15 @@ function System:unload()
 	self._eventUnsubscribers = {}
 end
 
--- EventManager proxies
-
-function System:emit(eventFn, ...)
-	return self.eventManager:emit(eventFn, ...)
-end
+-- Events
 
 function System:on(eventFn, callback)
 	local unsubscribe = self.eventManager:on(eventFn, callback)
 	table.insert(self._eventUnsubscribers, unsubscribe)
+end
+
+function System:emit(eventFn, ...)
+	return self.eventManager:emit(eventFn, ...)
 end
 
 function System:emitToServer(eventFn, ...)
@@ -92,10 +92,14 @@ function System:emitToAllClients(eventFn, ...)
 	return self.eventManager:emitToAllClients(eventFn, ...)
 end
 
--- EntityManager proxies
+-- Entities
 
 function System:createEntity()
 	return self.entityManager:createEntity()
+end
+
+function System:getEntitiesWithComponent(componentName)
+	return self.componentManager:getEntitiesWithComponent(componentName)
 end
 
 function System:destroyEntity(entityId)
@@ -103,14 +107,10 @@ function System:destroyEntity(entityId)
 	self.entityManager:destroyEntity(entityId)
 end
 
--- ComponentManager proxies
+-- Components
 
 function System:addComponent(entityId, componentName, componentData)
 	return self.componentManager:addComponent(entityId, componentName, componentData)
-end
-
-function System:removeComponent(entityId, componentName)
-	return self.componentManager:removeComponent(entityId, componentName)
 end
 
 function System:getComponent(entityId, ...)
@@ -119,6 +119,20 @@ end
 
 function System:getEntitiesWithComponent(componentName)
 	return self.componentManager:getEntitiesWithComponent(componentName)
+end
+
+function System:hasComponent(entity, componentName)
+	return self.componentManager:hasComponent(entity, componentName)
+end
+
+function System:removeComponent(entityId, componentName)
+	return self.componentManager:removeComponent(entityId, componentName)
+end
+
+function System:removeAllComponents(entity)
+	for componentName, entityMap in pairs(self.components) do
+		entityMap[entity] = nil
+	end
 end
 
 return System
