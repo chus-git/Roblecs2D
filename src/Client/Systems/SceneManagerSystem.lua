@@ -1,10 +1,12 @@
+local LoadSceneEvent = require(script.Parent.Scenes.SelectExperienceMenu.Events.LoadSceneEvent)
+
 local SceneManagerSystem = require(game.ReplicatedStorage.Core.System).extend()
 
 function SceneManagerSystem:load()
 	
 	self.systems = {}
 	
-	self:on("LoadScene", function(scene)
+	self:on(LoadSceneEvent, function(scene)
 		self:loadScene(scene)
 	end)
 

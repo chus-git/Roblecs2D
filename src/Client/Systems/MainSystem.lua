@@ -6,9 +6,7 @@ function MainSystem:load()
 	self.sceneManagerSystem:load()
 
 	local system = {
-		script.Parent.Scenes.CoolAnimation.BallGeneratorSystem,
-		script.Parent.Scenes.CoolAnimation.PendulumSystem,
-		script.Parent.Scenes.CoolAnimation.RenderSystem,
+		script.Parent.Scenes.SelectExperienceMenu.Systems.ExperienceGridSystem,
 	}
 
 	self.sceneManagerSystem:loadScene(system)

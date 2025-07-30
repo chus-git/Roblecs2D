@@ -1,26 +1,27 @@
+local LoadSceneEvent = require(script.Parent.Parent.Events.LoadSceneEvent)
+
 local ExperienceGridSystem = require(game.ReplicatedStorage.Core.System).extend()
 
 local MiniGames = {
-	{Name = "Aventura", Image = "rbxassetid://12345678"},
-	{Name = "Carreras", Image = "rbxassetid://87654321"},
-	{Name = "Puzzle", Image = "rbxassetid://11223344"},
-	-- más minijuegos...
+	{Name = "Game of Life", Systems = {
+		script.Parent.Parent.Parent.GameOfLife.Systems.GenerateMapSystem,
+		script.Parent.Parent.Parent.GameOfLife.Systems.MapSystem,
+	}},
 }
 
--- Miniatura como imagen clicable
-local function createMiniGameThumbnail(parent, miniGame)
-	local button = Instance.new("ImageButton")
+local function createMiniGameButton(parent, miniGame, onSelect)
+	local button = Instance.new("TextButton")
 	button.Size = UDim2.new(0, 100, 0, 100)
-	button.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+	button.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
 	button.BorderSizePixel = 0
-	button.Image = miniGame.Image
-	button.ScaleType = Enum.ScaleType.Crop
+	button.Text = miniGame.Name
+	button.TextColor3 = Color3.fromRGB(255, 255, 255)
+	button.TextScaled = true
+	button.Font = Enum.Font.GothamSemibold
 	button.Parent = parent
 
-	-- Evento de clic
 	button.MouseButton1Click:Connect(function()
-		print("Seleccionado:", miniGame.Name)
-		-- Aquí podrías hacer: self:emit("MinigameSelected", miniGame)
+		onSelect(miniGame)
 	end)
 
 	return button
@@ -53,7 +54,9 @@ function ExperienceGridSystem:load()
 	self.gridLayout.Parent = self.scrollingFrame
 
 	for _, miniGame in ipairs(MiniGames) do
-		createMiniGameThumbnail(self.scrollingFrame, miniGame)
+		createMiniGameButton(self.scrollingFrame, miniGame, function(miniGame)
+			self:emit(LoadSceneEvent(miniGame.Systems))
+		end)
 	end
 
 	local function updateLayout()
