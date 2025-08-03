@@ -14,8 +14,8 @@ end
 
 function RenderSystem:update(dt)
 	for ballId, renderable in pairs(self.ballsRenderables) do
-		local position = self:getComponent(ballId, CircleComponent)
-		local interpolated = self:getComponent(ballId, InterpolationComponent)
+		local position = self:getComponentFromEntity(ballId, CircleComponent)
+		local interpolated = self:getComponentFromEntity(ballId, InterpolationComponent)
 		interpolated.previous = interpolated.next
 		interpolated.next = Vector2.new(position.position.X, position.position.Y)
 	end
@@ -23,7 +23,7 @@ end
 
 function RenderSystem:render(dt, alpha)
 	for ballId, renderable in pairs(self.ballsRenderables) do
-		local interpolated = self:getComponent(ballId, InterpolationComponent)
+		local interpolated = self:getComponentFromEntity(ballId, InterpolationComponent)
 		interpolated.current = interpolated.previous + (interpolated.next - interpolated.previous) * alpha
 		local part = renderable.part
 		part.Position = Vector3.new(interpolated.current.X, interpolated.current.Y, 0)
@@ -31,7 +31,7 @@ function RenderSystem:render(dt, alpha)
 end
 
 function RenderSystem:addBall(ballId)
-	local circle = self:getComponent(ballId, CircleComponent)
+	local circle = self:getComponentFromEntity(ballId, CircleComponent)
 	if not circle then return end
 
 	local part = Instance.new("Part")

@@ -71,25 +71,25 @@ end
 
 -- Events
 
-function System:on(eventFn, callback)
-	local unsubscribe = self.eventManager:on(eventFn, callback)
+function System:on(event, callback)
+	local unsubscribe = self.eventManager:on(event, callback)
 	table.insert(self._eventUnsubscribers, unsubscribe)
 end
 
-function System:emit(eventFn, ...)
-	return self.eventManager:emit(eventFn, ...)
+function System:emit(event, ...)
+	return self.eventManager:emit(event, ...)
 end
 
-function System:emitToServer(eventFn, ...)
-	return self.eventManager:emitToServer(eventFn, ...)
+function System:emitToServer(event, ...)
+	return self.eventManager:emitToServer(event, ...)
 end
 
-function System:emitToClient(client, eventFn, ...)
-	return self.eventManager:emitToClient(client, eventFn, ...)
+function System:emitToClient(client, event, ...)
+	return self.eventManager:emitToClient(client, event, ...)
 end
 
-function System:emitToAllClients(eventFn, ...)
-	return self.eventManager:emitToAllClients(eventFn, ...)
+function System:emitToAllClients(event, ...)
+	return self.eventManager:emitToAllClients(event, ...)
 end
 
 -- Entities
@@ -102,37 +102,27 @@ function System:getEntitiesWithComponent(componentName)
 	return self.componentManager:getEntitiesWithComponent(componentName)
 end
 
-function System:destroyEntity(entityId)
+function System:getEntitiesWithComponent(componentName)
+	return self.componentManager:getEntitiesWithComponent(componentName)
+end
+
+function System:destroyEntityAndComponents(entityId)
 	self.componentManager:removeAllComponents(entityId)
 	self.entityManager:destroyEntity(entityId)
 end
 
 -- Components
 
-function System:addComponent(entityId, componentName, componentData)
-	return self.componentManager:addComponent(entityId, componentName, componentData)
+function System:addComponentToEntity(entityId, componentName, componentData)
+	return self.componentManager:addComponentToEntity(entityId, componentName, componentData)
 end
 
-function System:getComponent(entityId, ...)
-	return self.componentManager:getComponent(entityId, ...)
+function System:getComponentFromEntity(entityId, ...)
+	return self.componentManager:getComponentFromEntity(entityId, ...)
 end
 
-function System:getEntitiesWithComponent(componentName)
-	return self.componentManager:getEntitiesWithComponent(componentName)
-end
-
-function System:hasComponent(entity, componentName)
-	return self.componentManager:hasComponent(entity, componentName)
-end
-
-function System:removeComponent(entityId, componentName)
-	return self.componentManager:removeComponent(entityId, componentName)
-end
-
-function System:removeAllComponents(entity)
-	for componentName, entityMap in pairs(self.components) do
-		entityMap[entity] = nil
-	end
+function System:removeComponentFromEntity(entityId, componentName)
+	return self.componentManager:removeComponentFromEntity(entityId, componentName)
 end
 
 return System

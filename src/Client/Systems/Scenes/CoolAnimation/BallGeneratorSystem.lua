@@ -22,8 +22,8 @@ function BallGeneratorSystem:afterLoad()
 
             local color = (i == 1) and Color3.new(1, 0, 0) or Color3.new(0, 0, 1)
 
-            self:addComponent(entity, CircleComponent(radius, color, position))
-            self:addComponent(entity, InterpolationComponent(x, yPosition))
+            self:addComponentToEntity(entity, CircleComponent(radius, color, position))
+            self:addComponentToEntity(entity, InterpolationComponent(x, yPosition))
             self:emit(BallCreated(entity))
         end
     end
