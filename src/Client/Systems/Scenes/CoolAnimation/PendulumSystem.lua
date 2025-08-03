@@ -15,7 +15,7 @@ function PendulumSystem:load()
 end
 
 function PendulumSystem:addBall(ballEntity)
-	local circle = self:getComponentFromEntity(ballEntity, CircleComponent)
+	local circle = self:getComponent(ballEntity, CircleComponent)
 	if not circle then return end
 	
 	local L = math.abs(circle.position.X)
@@ -62,7 +62,7 @@ function PendulumSystem:update(dt)
             local x = L * math.sin(theta)
             local y = self.baseY - L * math.cos(theta)
             
-            local circle = self:getComponentFromEntity(ball.entity, CircleComponent)
+            local circle = self:getComponent(ball.entity, CircleComponent)
             if circle then
                 circle.position = Vector2.new(x, y)
             end

@@ -7,13 +7,13 @@ function ComponentManager.new()
 	return self
 end
 
-function ComponentManager:addComponentToEntity(entity, componentName, componentData)
+function ComponentManager:addComponent(entity, componentName, componentData)
 	self.components[componentName] = self.components[componentName] or {}
 	self.components[componentName][entity] = componentData
 	return componentData
 end
 
-function ComponentManager:getComponentFromEntity(entity, component)
+function ComponentManager:getComponent(entity, component)
 	return self.components[component.name][entity]
 end
 

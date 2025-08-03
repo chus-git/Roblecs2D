@@ -63,6 +63,10 @@ function System:render(dt, alpha)
 end
 
 function System:unload()
+	--
+end
+
+function System:destroy()
 	for _, unsub in ipairs(self._eventUnsubscribers) do
 		pcall(unsub)
 	end
@@ -102,10 +106,6 @@ function System:getEntitiesWithComponent(componentName)
 	return self.componentManager:getEntitiesWithComponent(componentName)
 end
 
-function System:getEntitiesWithComponent(componentName)
-	return self.componentManager:getEntitiesWithComponent(componentName)
-end
-
 function System:destroyEntityAndComponents(entityId)
 	self.componentManager:removeAllComponents(entityId)
 	self.entityManager:destroyEntity(entityId)
@@ -113,12 +113,12 @@ end
 
 -- Components
 
-function System:addComponentToEntity(entityId, componentName, componentData)
-	return self.componentManager:addComponentToEntity(entityId, componentName, componentData)
+function System:addComponent(entityId, componentName, componentData)
+	return self.componentManager:addComponent(entityId, componentName, componentData)
 end
 
-function System:getComponentFromEntity(entityId, ...)
-	return self.componentManager:getComponentFromEntity(entityId, ...)
+function System:getComponent(entityId, ...)
+	return self.componentManager:getComponent(entityId, ...)
 end
 
 function System:removeComponentFromEntity(entityId, componentName)

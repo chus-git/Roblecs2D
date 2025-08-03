@@ -18,6 +18,7 @@ function SceneManagerSystem:loadScene(SystemModules)
 
 	for _, system in ipairs(self.systems) do
 		system:unload()
+		system:destroy()
 	end
 	
 	self.systems = self.create(SystemModules, self.eventManager, self.entityManager, self.componentManager, self.viewport, self.camera)
