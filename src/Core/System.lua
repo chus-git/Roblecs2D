@@ -7,9 +7,9 @@ function System.extend()
 	return Utils.extend(System)
 end
 
-function System.create(SystemModuleOrList, eventManager, entityManager, componentManager, viewport, camera)
+function System.create(SystemModuleOrList, eventManager, entityManager, componentManager, viewport, camera, screenGui)
 	local function instantiate(module)
-		return require(module).new(eventManager, entityManager, componentManager, viewport, camera)
+		return require(module).new(eventManager, entityManager, componentManager, viewport, camera, screenGui)
 	end
 	if typeof(SystemModuleOrList) == "table" and #SystemModuleOrList > 0 then
 		local systems = {}
@@ -22,8 +22,7 @@ function System.create(SystemModuleOrList, eventManager, entityManager, componen
 	end
 end
 
-
-function System.new(eventManager, entityManager, componentManager, viewframe, camera)
+function System.new(eventManager, entityManager, componentManager, viewframe, camera, screenGui)
 
 	local self = setmetatable({}, System)
 	self.eventManager = eventManager
@@ -31,6 +30,7 @@ function System.new(eventManager, entityManager, componentManager, viewframe, ca
 	self.componentManager = componentManager
 	self.viewport = viewframe
 	self.camera = camera
+	self.screenGui = screenGui
 	
 	self._eventUnsubscribers = {}
 	
@@ -106,7 +106,7 @@ function System:getEntitiesWithComponent(componentName)
 	return self.componentManager:getEntitiesWithComponent(componentName)
 end
 
-function System:destroyEntityAndComponents(entityId)
+function System:destroyEntity(entityId)
 	self.componentManager:removeAllComponents(entityId)
 	self.entityManager:destroyEntity(entityId)
 end

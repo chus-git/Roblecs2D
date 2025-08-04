@@ -29,20 +29,12 @@ function EngineFactory.create(remoteEvent)
 		screenGui.ResetOnSpawn = false
 		screenGui.Parent = playerGui
 
-		viewport = Instance.new("ViewportFrame")
-		viewport.Name = "Viewport"
-		viewport.Size = UDim2.fromScale(1, 1)
-		viewport.Position = UDim2.fromScale(0, 0)
-		viewport.BackgroundColor3 = Color3.new(1, 1, 1)
-		viewport.BackgroundTransparency = 0
-		viewport.BorderSizePixel = 0
-		viewport.Parent = screenGui
+		viewport = Instance.new("Folder")
+		viewport.Name = "RenderRoot"
+		viewport.Parent = workspace
 
-		camera = Instance.new("Camera")
-		camera.Name = "ViewportCamera"
-		camera.CFrame = CFrame.new(0, 0, -100) * CFrame.lookAt(Vector3.new(0, 0, -100), Vector3.new(0, 0, 0))
-		camera.Parent = viewport
-		viewport.CurrentCamera = camera
+		camera = workspace.CurrentCamera
+		camera.CFrame = CFrame.new(Vector3.new(0, 100, 0)) * CFrame.Angles(-math.rad(90), 0, 0)
 		
 	end
 	
@@ -60,7 +52,8 @@ function EngineFactory.create(remoteEvent)
 		entityManager,
 		componentManager,
 		viewport,
-		camera
+		camera,
+		screenGui
 	)
 
 	local engine = Engine.new(

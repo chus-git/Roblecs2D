@@ -75,7 +75,8 @@ function EventManager:flush()
 		local handlers = self.listeners[event.name]
 		if handlers then
 			for _, handler in ipairs(handlers) do
-				handler(table.unpack(event.args))
+				local args = event.args or {}
+				handler(table.unpack(args))
 			end
 		end
 	end

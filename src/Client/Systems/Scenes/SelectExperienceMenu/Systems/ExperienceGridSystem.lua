@@ -4,8 +4,9 @@ local ExperienceGridSystem = require(game.ReplicatedStorage.Core.System).extend(
 
 local MiniGames = {
 	{Name = "Game of Life", Systems = {
-		script.Parent.Parent.Parent.GameOfLife.Systems.GenerateMapSystem,
 		script.Parent.Parent.Parent.GameOfLife.Systems.MapSystem,
+		script.Parent.Parent.Parent.GameOfLife.Systems.RenderSystem,
+		script.Parent.Parent.Parent.GameOfLife.Systems.InputSystem,
 	}},
 }
 
@@ -59,22 +60,22 @@ function ExperienceGridSystem:load()
 		end)
 	end
 
-	local function updateLayout()
-		local width = self.viewport.AbsoluteSize.X
-		if width > 1000 then
-			self.gridLayout.CellSize = UDim2.new(0, 150, 0, 150)
-			self.gridLayout.CellPadding = UDim2.new(0, 15, 0, 15)
-		elseif width > 600 then
-			self.gridLayout.CellSize = UDim2.new(0, 120, 0, 120)
-			self.gridLayout.CellPadding = UDim2.new(0, 10, 0, 10)
-		else
-			self.gridLayout.CellSize = UDim2.new(0, 100, 0, 100)
-			self.gridLayout.CellPadding = UDim2.new(0, 5, 0, 5)
-		end
-	end
+	--local function updateLayout()
+	--	local width = self.screenGui.AbsoluteSize.X
+	--	if width > 1000 then
+	--		self.gridLayout.CellSize = UDim2.new(0, 150, 0, 150)
+	--		self.gridLayout.CellPadding = UDim2.new(0, 15, 0, 15)
+	--	elseif width > 600 then
+	--		self.gridLayout.CellSize = UDim2.new(0, 120, 0, 120)
+	--		self.gridLayout.CellPadding = UDim2.new(0, 10, 0, 10)
+	--	else
+	--		self.gridLayout.CellSize = UDim2.new(0, 100, 0, 100)
+	--		self.gridLayout.CellPadding = UDim2.new(0, 5, 0, 5)
+	--	end
+	--end
 
-	updateLayout()
-	self.sizeChangedConn = self.viewport:GetPropertyChangedSignal("AbsoluteSize"):Connect(updateLayout)
+	--updateLayout()
+	--self.sizeChangedConn = self.viewport:GetPropertyChangedSignal("AbsoluteSize"):Connect(updateLayout)
 end
 
 function ExperienceGridSystem:unload()
