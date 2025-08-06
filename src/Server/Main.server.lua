@@ -1,1 +1,0 @@
-local game = require(game.ReplicatedStorage.Core.Game).new()

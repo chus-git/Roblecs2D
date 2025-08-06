@@ -4,28 +4,20 @@
     "$className": "DataModel",
 
     "ReplicatedStorage": {
-      "Core": {
-        "$path": "src/Core"
-      },
-      "Shared": {
-        "$path": "src/Shared"
-      },
-      "GameEventManager": {
-        "$className": "RemoteEvent"
-      }
+      "Shared": { "$path": "src/Game/Shared" },
+      "GameEventManager": { "$className": "RemoteEvent" },
+      "Kernel": { "$path": "src/Kernel/Shared" }
     },
 
     "ServerScriptService": {
-      "Server": {
-        "$path": "src/Server"
-      }
+      "Server": { "$path": "src/Game/Server" },
+      "EntryPoint": { "$path": "src/Kernel/Server" }
     },
 
     "StarterPlayer": {
       "StarterPlayerScripts": {
-        "Client": {
-          "$path": "src/Client"
-        }
+        "Client": { "$path": "src/Game/Client" },
+        "EntryPoint": { "$path": "src/Kernel/Client" }
       }
     }
   }
