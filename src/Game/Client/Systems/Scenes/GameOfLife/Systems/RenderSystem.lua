@@ -1,10 +1,10 @@
 local CellCreatedEvent = require(script.Parent.Parent.Events.CellCreatedEvent)
-local Position = require(game.ReplicatedStorage.Shared.Components.Position)
+local PositionComponent = require(game.ReplicatedStorage.Components.PositionComponent)
 local State = require(script.Parent.Parent.Components.State)
 
-local RenderSystem = require(game.ReplicatedStorage.Kernel.System).extend()
+local RenderSystem = require(game.ReplicatedStorage.Source.System).extend()
 
-local CELL_SIZE = 10
+local CELL_SIZE = 11
 local GAP = 1
 
 function RenderSystem:load()
@@ -15,10 +15,11 @@ function RenderSystem:load()
 		self:createRenderableCell(cellId)
 	end)
 
+	self:emit(require(game.ReplicatedStorage.Events.CreateSpriteEvent)("rbxassetid://101659716364845", 0, 0, 100, 100))
+
 end
 
 function RenderSystem:render(dt, alpha)
-	self.camera.CFrame = CFrame.lookAt(Vector3.new(0, 0, -10000), Vector3.new(0, 0, 0))
     for cellId, part in pairs(self.renderables) do
         local state = self:getComponent(cellId, State)
         part.Color = state.current and Color3.new(0, 0, 0) or Color3.new(1, 1, 1)
@@ -26,7 +27,7 @@ function RenderSystem:render(dt, alpha)
 end
 
 function RenderSystem:createRenderableCell(cellId)
-	local position = self:getComponent(cellId, Position)
+	local position = self:getComponent(cellId, PositionComponent)
 	local state = self:getComponent(cellId, State)
 
 	local part = Instance.new("Part")

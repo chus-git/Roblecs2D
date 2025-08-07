@@ -1,4 +1,4 @@
-local CellCreatedEvent = require(game.ReplicatedStorage.Kernel.Event).extend()
+local CellCreatedEvent = require(game.ReplicatedStorage.Source.Event).extend()
 
 CellCreatedEvent.name = "CellCreatedEvent"
 

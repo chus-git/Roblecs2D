@@ -1,4 +1,4 @@
-local LoadSceneEvent = require(game.ReplicatedStorage.Kernel.Event).extend()
+local LoadSceneEvent = require(game.ReplicatedStorage.Source.Event).extend()
 
 LoadSceneEvent.name = "LoadSceneEvent"
 

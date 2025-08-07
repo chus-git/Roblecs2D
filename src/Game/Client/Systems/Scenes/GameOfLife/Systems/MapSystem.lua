@@ -1,10 +1,10 @@
 local CreateCellEvent = require(script.Parent.Parent.Events.CreateCellEvent)
 local CellCreatedEvent = require(script.Parent.Parent.Events.CellCreatedEvent)
 local ToggleCellEvent = require(script.Parent.Parent.Events.ToggleCellEvent)
-local Position = require(game.ReplicatedStorage.Shared.Components.Position)
+local PositionComponent = require(game.ReplicatedStorage.Components.PositionComponent)
 local State = require(script.Parent.Parent.Components.State)
 
-local MapSystem = require(game.ReplicatedStorage.Kernel.System).extend()
+local MapSystem = require(game.ReplicatedStorage.Source.System).extend()
 
 local MAP_WIDTH = 51
 local MAP_HEIGHT = 51
@@ -62,7 +62,7 @@ function MapSystem:update(dt)
 	-- Fase 1: calcular `state.next` de cada celda
 	for x, column in pairs(self.map) do
 		for y, cellId in pairs(column) do
-			local position = self:getComponent(cellId, Position)
+			local position = self:getComponent(cellId, PositionComponent)
 			local state = self:getComponent(cellId, State)
 			if position and state then
 				self:applyRules(position, state)
@@ -118,7 +118,7 @@ end
 function MapSystem:createCell(x, y, alive)
 
 	local cellId = self:createEntity()
-	local cellPosition = self:addComponent(cellId, Position(x, y))
+	local cellPosition = self:addComponent(cellId, PositionComponent(x, y))
 	local cellState = self:addComponent(cellId, State(false, false))
 
 	if not self.map[x] then

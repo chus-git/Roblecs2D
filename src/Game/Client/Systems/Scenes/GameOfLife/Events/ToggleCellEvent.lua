@@ -1,4 +1,4 @@
-local ToggleCellEvent = require(game.ReplicatedStorage.Kernel.Event).extend()
+local ToggleCellEvent = require(game.ReplicatedStorage.Source.Event).extend()
 
 ToggleCellEvent.name = "ToggleCellEvent"
 

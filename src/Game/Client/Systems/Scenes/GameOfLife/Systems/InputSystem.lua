@@ -1,7 +1,7 @@
 local UserInputService = game:GetService("UserInputService")
 local ToggleCellEvent = require(script.Parent.Parent.Events.ToggleCellEvent)
 
-local InputSystem = require(game.ReplicatedStorage.Kernel.System).extend()
+local InputSystem = require(game.ReplicatedStorage.Source.System).extend()
 
 function InputSystem:load()
 

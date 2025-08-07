@@ -1,4 +1,4 @@
-local MainSystem = require(game.ReplicatedStorage.Kernel.System).extend()
+local MainSystem = require(game.ReplicatedStorage.Source.System).extend()
 
 function MainSystem:load()
 	

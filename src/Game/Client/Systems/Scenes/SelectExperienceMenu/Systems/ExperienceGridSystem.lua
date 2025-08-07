@@ -1,11 +1,18 @@
 local LoadSceneEvent = require(script.Parent.Parent.Events.LoadSceneEvent)
 
-local ExperienceGridSystem = require(game.ReplicatedStorage.Kernel.System).extend()
+local ExperienceGridSystem = require(game.ReplicatedStorage.Source.System).extend()
 
 local MiniGames = {
-	{Name = "Game of Life", SystemsPath = script.Parent.Parent.Parent.GameOfLife.Systems},
-	{Name = "Cool Animation", SystemsPath = script.Parent.Parent.Parent.CoolAnimation.Systems},
-	{Name = "Top Down Shooter", SystemsPath = script.Parent.Parent.Parent.TopDownShooter.Systems},
+	{Name = "Game of Life", Systems = {
+		script.Parent.Parent.Parent.GameOfLife.Systems.InputSystem,
+		script.Parent.Parent.Parent.GameOfLife.Systems.MapSystem,
+		script.Parent.Parent.Parent.GameOfLife.Systems.RenderSystem,
+		game.ReplicatedStorage.Systems.SpriteManagerSystem,
+	}},
+	{Name = "Demo", Systems = {
+		script.Parent.Parent.Parent.Demo.Systems.MainSystem,
+		game.ReplicatedStorage.Systems.SpriteManagerSystem,
+	}},
 }
 
 local function createMiniGameButton(parent, miniGame, onSelect)
@@ -51,20 +58,9 @@ function ExperienceGridSystem:load()
 	self.gridLayout.SortOrder = Enum.SortOrder.LayoutOrder
 	self.gridLayout.Parent = self.scrollingFrame
 
-	
-	local function getAllModulesFromFolder(folder)
-		local modules = {}
-		for _, descendant in ipairs(folder:GetDescendants()) do
-			if descendant:IsA("ModuleScript") then
-				table.insert(modules, descendant)
-			end
-		end
-		return modules
-	end
-
 	for _, miniGame in ipairs(MiniGames) do
 		createMiniGameButton(self.scrollingFrame, miniGame, function(miniGame)
-			local modulesList = getAllModulesFromFolder(miniGame.SystemsPath)
+			local modulesList = miniGame.Systems
 			self:emit(LoadSceneEvent(modulesList))
 		end)
 	end

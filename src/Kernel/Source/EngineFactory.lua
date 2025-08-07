@@ -3,11 +3,11 @@ local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local remoteEvent = ReplicatedStorage:FindFirstChild("GameEventManager")
 
-local Engine = require(game.ReplicatedStorage.Kernel.Engine)
-local System = require(game.ReplicatedStorage.Kernel.System)
-local EventManager = require(game.ReplicatedStorage.Kernel.EventManager)
-local EntityManager = require(game.ReplicatedStorage.Kernel.EntityManager)
-local ComponentManager = require(game.ReplicatedStorage.Kernel.ComponentManager)
+local Engine = require(game.ReplicatedStorage.Source.Engine)
+local System = require(game.ReplicatedStorage.Source.System)
+local EventManager = require(game.ReplicatedStorage.Source.EventManager)
+local EntityManager = require(game.ReplicatedStorage.Source.EntityManager)
+local ComponentManager = require(game.ReplicatedStorage.Source.ComponentManager)
 
 local EngineFactory = {}
 
@@ -75,7 +75,7 @@ function EngineFactory.createClientEngine()
 		eventManager:emit(eventName, ...)
 	end)
 
-	self:resetClient()
+	EngineFactor.resetClient()
 
 	return engine
 

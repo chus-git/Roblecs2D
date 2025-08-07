@@ -1,5 +1,5 @@
 
-local State = require(game.ReplicatedStorage.Kernel.Component).extend()
+local State = require(game.ReplicatedStorage.Source.Component).extend()
 
 State.name = "State"
 

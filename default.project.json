@@ -4,9 +4,11 @@
     "$className": "DataModel",
 
     "ReplicatedStorage": {
-      "Shared": { "$path": "src/Game/Shared" },
-      "GameEventManager": { "$className": "RemoteEvent" },
-      "Kernel": { "$path": "src/Kernel/Shared" }
+      "Events": { "$path": "src/Kernel/Bases/Events" },
+      "Components": { "$path": "src/Kernel/Bases/Components" },
+      "Systems": { "$path": "src/Kernel/Bases/Systems" },
+      "Source": { "$path": "src/Kernel/Source" },
+      "GameEventManager": { "$className": "RemoteEvent" }
     },
 
     "ServerScriptService": {

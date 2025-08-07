@@ -1,6 +1,6 @@
 local LoadSceneEvent = require(script.Parent.Scenes.SelectExperienceMenu.Events.LoadSceneEvent)
 
-local SceneManagerSystem = require(game.ReplicatedStorage.Kernel.System).extend()
+local SceneManagerSystem = require(game.ReplicatedStorage.Source.System).extend()
 
 function SceneManagerSystem:load()
 	

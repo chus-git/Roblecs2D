@@ -1,8 +1,9 @@
 local Players = game:GetService("Players")
-local PlayerConnectedEvent = require(game.ReplicatedStorage.Shared.Events.PlayerConnected)
-local PlayerDisconnetedEvent = require(game.ReplicatedStorage.Shared.Events.PlayerDisconnected)
+local PlayerConnectedEvent = require(game.ReplicatedStorage.Events.PlayerConnectedEvent)
+local PlayerDisconnetedEvent = require(game.ReplicatedStorage.Events.PlayerDisconnectedEvent)
+local PlayerComponent = require(game.ReplicatedStorage.Components.PlayerComponent)
 
-local PlayerSystem = require(game.ReplicatedStorage.Kernel.System).extend()
+local PlayerSystem = require(game.ReplicatedStorage.Source.System).extend()
 
 function PlayerSystem:load()
 
@@ -30,16 +31,14 @@ function PlayerSystem:afterLoad()
 
 end
 
-function PlayerSystem:addPlayer(playerId: number, playerName: string)
-	print("[PlayerSystem] Player connected:", playerId, playerName)
-	self.players[playerId] = {
-		id = playerId,
-		name = playerName
-	}
+function PlayerSystem:addPlayer(playerUserId: number, playerName: string)
+	local playerId = self:createEntity()
+	local playerComponent = self:addComponent(PlayerComponent(playerUserId, playerName))
+	self.players[playerId] = playerId
 end
 
 function PlayerSystem:removePlayer(playerId)
-	print("[PlayerSystem] Player disconnected:", playerId)
+	self:destroyEntity(playerId)
 	self.players[playerId] = nil
 end
 
