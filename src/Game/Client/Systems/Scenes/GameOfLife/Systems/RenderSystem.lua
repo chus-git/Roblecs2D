@@ -1,4 +1,3 @@
-local CellCreatedEvent = require(script.Parent.Parent.Events.CellCreatedEvent)
 local PositionComponent = require(game.ReplicatedStorage.Components.PositionComponent)
 local State = require(script.Parent.Parent.Components.State)
 
@@ -14,8 +13,6 @@ function RenderSystem:load()
 	self:on(CellCreatedEvent, function(cellId)
 		self:createRenderableCell(cellId)
 	end)
-
-	self:emit(require(game.ReplicatedStorage.Events.CreateSpriteEvent)("rbxassetid://101659716364845", 0, 0, 100, 100))
 
 end
 

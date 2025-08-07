@@ -7,7 +7,6 @@ local MiniGames = {
 		script.Parent.Parent.Parent.GameOfLife.Systems.InputSystem,
 		script.Parent.Parent.Parent.GameOfLife.Systems.MapSystem,
 		script.Parent.Parent.Parent.GameOfLife.Systems.RenderSystem,
-		game.ReplicatedStorage.Systems.SpriteManagerSystem,
 	}},
 	{Name = "Demo", Systems = {
 		script.Parent.Parent.Parent.Demo.Systems.MainSystem,

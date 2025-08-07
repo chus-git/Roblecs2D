@@ -2,26 +2,48 @@ local SpriteManagerSystem = require(game.ReplicatedStorage.Source.System).extend
 
 local SpriteComponent = require(game.ReplicatedStorage.Components.SpriteComponent)
 local PositionComponent = require(game.ReplicatedStorage.Components.PositionComponent)
-local CreateSpriteEvent = require(game.ReplicatedStorage.Events.CreateSpriteEvent)
 
 function SpriteManagerSystem:load()
 
-    self.sprites = {}
-
-	self:on(CreateSpriteEvent, function(imageId: string, x: number, y: number, width: number, height: number)
-		self:addSprite(imageId, x, y, width, height)
-	end)
+    self.images = {}
 	
 end
 
 function SpriteManagerSystem:render(dt, alpha)
-    --for spriteId, spriteComponent in pairs(self.sprites) do
-    --    local positionComponent = self:getComponent(spriteId, PositionComponent)
-    --    local spriteComponent = self:getComponent(spriteId, SpriteComponent)
-    --    local sprite = self.sprites[spriteId]
-    --    sprite.Adornee.Position = Vector3.new(positionComponent.x, positionComponent.y, 0)
-    --    sprite.Size = UDim2.new(0, spriteComponent.width * 100, 0, spriteComponent.height * 100)
-    --end
+    local STUDS_PER_PIXEL = 1 / (self.camera.FieldOfView / 5)
+
+    local entities = self:getEntitiesWithComponent(SpriteComponent)
+
+    for _, entityId in ipairs(entities) do
+        
+        local spriteComponent = self:getComponent(entityId, SpriteComponent)
+        local positionComponent = self:getComponent(entityId, PositionComponent)
+
+        local image = self.images[entityId]
+
+        if not image then
+            image = self:createImage(
+                spriteComponent.imageId,
+                positionComponent.x,
+                positionComponent.y,
+                spriteComponent.width,
+                spriteComponent.height
+            )
+            self.images[entityId] = image
+        end
+
+        local part = image.Parent.Parent
+        local billboard = image.Parent
+
+        -- Actualizar posición
+        part.Position = Vector3.new(positionComponent.x, positionComponent.y, 0)
+
+        -- Actualizar tamaño del Part (en studs)
+        part.Size = Vector3.new(spriteComponent.width, 0.1, spriteComponent.height)
+
+        -- Actualizar tamaño del BillboardGui (en píxeles)
+        billboard.Size = UDim2.new(0, spriteComponent.width * STUDS_PER_PIXEL, 0, spriteComponent.height * STUDS_PER_PIXEL)
+    end
 end
 
 ---
@@ -32,14 +54,15 @@ function SpriteManagerSystem:addSprite(imageId: string, x: number, y: number, wi
     local positionComponent = self:addComponent(spriteId, PositionComponent(x, Y))
     local spriteComponent = self:addComponent(spriteId, SpriteComponent(imageId, width, height))
 
-    local sprite = self:createSprite(imageId, x, y, width, height)
+    local image = self:createImage(imageId, x, y, width, height)
 
-    self.sprites[spriteId] = sprite
+    self.images[spriteId] = image
+    
 end
 
-function SpriteManagerSystem:createSprite(imageId: string, x: number, y: number, width: number, height: number)
+function SpriteManagerSystem:createImage(imageId: string, x: number, y: number, width: number, height: number)
 
-    local STUDS_PER_PIXEL = self.camera.FieldOfView / 5
+    local STUDS_PER_PIXEL = 1 / (self.camera.FieldOfView / 5)
 
     -- Crear el Part anclado e invisible
     local part = Instance.new("Part")
@@ -54,7 +77,7 @@ function SpriteManagerSystem:createSprite(imageId: string, x: number, y: number,
     -- Crear el BillboardGui (sprite 2D)
     local billboard = Instance.new("BillboardGui")
     billboard.Adornee = part
-    billboard.Size = UDim2.new(0, width / STUDS_PER_PIXEL, 0, height / STUDS_PER_PIXEL)
+    billboard.Size = UDim2.new(0, width * STUDS_PER_PIXEL, 0, height * STUDS_PER_PIXEL)
     billboard.AlwaysOnTop = true
     billboard.LightInfluence = 0
     billboard.ResetOnSpawn = false
@@ -68,7 +91,7 @@ function SpriteManagerSystem:createSprite(imageId: string, x: number, y: number,
     image.BorderSizePixel = 0
     image.Parent = billboard
 
-    return billboard
+    return image
 
 end
 

@@ -1,11 +1,14 @@
-local CreateSpriteEvent = require(game.ReplicatedStorage.Events.CreateSpriteEvent)
+local PositionComponent = require(game.ReplicatedStorage.Components.PositionComponent)
+local SpriteComponent = require(game.ReplicatedStorage.Components.SpriteComponent)
 
 local MainSystem = require(game.ReplicatedStorage.Source.System).extend()
 
-function MainSystem:afterLoad()
+function MainSystem:load()
 	
-	self:emit(CreateSpriteEvent("rbxassetid://101659716364845", 0, 0, 10, 10))
-	
+    local spriteId = self:createEntity()
+    local position = self:addComponent(spriteId, PositionComponent(0, 0))
+    local sprite = self:addComponent(spriteId, SpriteComponent("rbxassetid://101659716364845", 100, 100))
+
 end
 
 return MainSystem
