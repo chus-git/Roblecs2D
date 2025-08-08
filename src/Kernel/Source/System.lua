@@ -22,6 +22,10 @@ function System.create(SystemModuleOrList, eventManager, entityManager, componen
 	end
 end
 
+function System:create(SystemModuleOrList)
+	self.create(SystemModuleOrList, self.eventManager, self.entityManager, self.componentManager, self.world, self.camera, self.screenGui)
+end
+
 function System.new(eventManager, entityManager, componentManager, world, camera, screenGui)
 
 	local self = setmetatable({}, System)
@@ -123,6 +127,10 @@ end
 
 function System:removeComponent(entityId, componentName)
 	return self.componentManager:removeComponent(entityId, componentName)
+end
+
+function System:hasComponent(entityId, componentName)
+	return self.componentManager:hasComponent(entityId, componentName)
 end
 
 return System

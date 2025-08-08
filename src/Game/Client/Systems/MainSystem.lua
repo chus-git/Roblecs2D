@@ -2,7 +2,7 @@ local MainSystem = require(game.ReplicatedStorage.Source.System).extend()
 
 function MainSystem:load()
 	
-	self.sceneManagerSystem = self.create(script.Parent.SceneManagerSystem, self.eventManager, self.entityManager, self.componentManager, self.world, self.camera, self.screenGui)
+	self.sceneManagerSystem = self:create(game.ReplicatedStorage.Systems.SceneManagerSystem)
 	self.sceneManagerSystem:load()
 
 	local system = {

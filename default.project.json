@@ -4,10 +4,8 @@
     "$className": "DataModel",
 
     "ReplicatedStorage": {
-      "Events": { "$path": "src/Kernel/Bases/Events" },
-      "Components": { "$path": "src/Kernel/Bases/Components" },
-      "Systems": { "$path": "src/Kernel/Bases/Systems" },
       "Source": { "$path": "src/Kernel/Source" },
+      "Modules" : { "$path": "src/Kernel/Modules" },
       "GameEventManager": { "$className": "RemoteEvent" }
     },
 

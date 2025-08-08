@@ -24,6 +24,10 @@ function ComponentManager:getEntitiesWithComponent(component)
 	return self.entitiesByComponent[component.name]
 end
 
+function ComponentManager:hasComponent(entity, component)
+	return self.components[component.name][entity] ~= nil
+end
+
 function ComponentManager:removeComponent(entity, component)
 	self.components[component.name][entity] = nil
 	self.entitiesByComponent[component.name][entity] = nil

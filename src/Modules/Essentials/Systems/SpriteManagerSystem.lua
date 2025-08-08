@@ -1,7 +1,7 @@
 local SpriteManagerSystem = require(game.ReplicatedStorage.Source.System).extend()
 
-local SpriteComponent = require(game.ReplicatedStorage.Components.SpriteComponent)
-local PositionComponent = require(game.ReplicatedStorage.Components.PositionComponent)
+local SpriteComponent = require(game.ReplicatedStorage.Modules.Essentials.Components.SpriteComponent)
+local PositionComponent = require(game.ReplicatedStorage.Modules.Essentials.Components.PositionComponent)
 
 function SpriteManagerSystem:load()
 
@@ -44,6 +44,13 @@ function SpriteManagerSystem:render(dt, alpha)
         -- Actualizar tamaño del BillboardGui (en píxeles)
         billboard.Size = UDim2.new(0, spriteComponent.width * STUDS_PER_PIXEL, 0, spriteComponent.height * STUDS_PER_PIXEL)
     end
+end
+
+function SpriteManagerSystem:unload()
+    for _, image in pairs(self.images) do
+        image.Parent.Parent:Destroy()
+    end
+    self.images = {}
 end
 
 ---

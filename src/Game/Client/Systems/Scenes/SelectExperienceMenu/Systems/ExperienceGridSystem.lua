@@ -1,4 +1,4 @@
-local LoadSceneEvent = require(script.Parent.Parent.Events.LoadSceneEvent)
+local LoadSceneEvent = require(game.ReplicatedStorage.Modules.Essentials.Events.LoadSceneEvent)
 
 local ExperienceGridSystem = require(game.ReplicatedStorage.Source.System).extend()
 
@@ -10,7 +10,7 @@ local MiniGames = {
 	}},
 	{Name = "Demo", Systems = {
 		script.Parent.Parent.Parent.Demo.Systems.MainSystem,
-		game.ReplicatedStorage.Systems.SpriteManagerSystem,
+		game.ReplicatedStorage.Modules.Essentials.Systems.SpriteManagerSystem,
 	}},
 }
 

@@ -1,5 +1,5 @@
-local PositionComponent = require(game.ReplicatedStorage.Components.PositionComponent)
-local SpriteComponent = require(game.ReplicatedStorage.Components.SpriteComponent)
+local PositionComponent = require(game.ReplicatedStorage.Modules.Essentials.Components.PositionComponent)
+local SpriteComponent = require(game.ReplicatedStorage.Modules.Essentials.Components.SpriteComponent)
 
 local MainSystem = require(game.ReplicatedStorage.Source.System).extend()
 
