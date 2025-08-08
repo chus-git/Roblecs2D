@@ -7,9 +7,11 @@ function System.extend()
 	return Utils.extend(System)
 end
 
-function System.create(SystemModuleOrList, eventManager, entityManager, componentManager, world, camera, screenGui)
+function System:create(SystemModuleOrList)
 	local function instantiate(module)
-		return require(module).new(eventManager, entityManager, componentManager, world, camera, screenGui)
+		local system = require(module).new(self.eventManager, self.entityManager, self.componentManager, self.world, self.camera, self.screenGui)
+		system:init()
+		return system
 	end
 	if typeof(SystemModuleOrList) == "table" and #SystemModuleOrList > 0 then
 		local systems = {}
@@ -20,10 +22,6 @@ function System.create(SystemModuleOrList, eventManager, entityManager, componen
 	else
 		return instantiate(SystemModuleOrList)
 	end
-end
-
-function System:create(SystemModuleOrList)
-	self.create(SystemModuleOrList, self.eventManager, self.entityManager, self.componentManager, self.world, self.camera, self.screenGui)
 end
 
 function System.new(eventManager, entityManager, componentManager, world, camera, screenGui)
@@ -42,11 +40,11 @@ function System.new(eventManager, entityManager, componentManager, world, camera
 
 end
 
-function System:load()
+function System:init()
 	--
 end
 
-function System:afterLoad()
+function System:load()
 	--
 end
 

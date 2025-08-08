@@ -1,11 +1,11 @@
 local Players = game:GetService("Players")
-local PlayerConnectedEvent = require(game.ReplicatedStorage.Events.PlayerConnectedEvent)
-local PlayerDisconnetedEvent = require(game.ReplicatedStorage.Events.PlayerDisconnectedEvent)
-local PlayerComponent = require(game.ReplicatedStorage.Components.PlayerComponent)
+local PlayerConnectedEvent = require(game.ReplicatedStorage.Modules.Essentials.Events.PlayerConnectedEvent)
+local PlayerDisconnetedEvent = require(game.ReplicatedStorage.Modules.Essentials.Events.PlayerDisconnectedEvent)
+local PlayerComponent = require(game.ReplicatedStorage.Modules.Essentials.Components.PlayerComponent)
 
 local PlayerSystem = require(game.ReplicatedStorage.Source.System).extend()
 
-function PlayerSystem:load()
+function PlayerSystem:init()
 
 	self.players = {}
 
@@ -19,7 +19,7 @@ function PlayerSystem:load()
 	
 end
 
-function PlayerSystem:afterLoad()
+function PlayerSystem:load()
 
 	Players.PlayerAdded:Connect(function(player)
 		self:emit(PlayerConnectedEvent(player.UserId, player.Name))

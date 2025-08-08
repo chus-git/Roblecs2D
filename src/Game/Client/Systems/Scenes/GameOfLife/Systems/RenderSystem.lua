@@ -1,4 +1,4 @@
-local PositionComponent = require(game.ReplicatedStorage.Components.PositionComponent)
+local PositionComponent = require(game.ReplicatedStorage.Modules.Essentials.Components.PositionComponent)
 local State = require(script.Parent.Parent.Components.State)
 
 local RenderSystem = require(game.ReplicatedStorage.Source.System).extend()
@@ -6,7 +6,7 @@ local RenderSystem = require(game.ReplicatedStorage.Source.System).extend()
 local CELL_SIZE = 11
 local GAP = 1
 
-function RenderSystem:load()
+function RenderSystem:init()
 
 	self.renderables = {}
 

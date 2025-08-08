@@ -5,7 +5,7 @@
 
     "ReplicatedStorage": {
       "Source": { "$path": "src/Kernel/Source" },
-      "Modules" : { "$path": "src/Kernel/Modules" },
+      "Modules" : { "$path": "src/Modules" },
       "GameEventManager": { "$className": "RemoteEvent" }
     },
 

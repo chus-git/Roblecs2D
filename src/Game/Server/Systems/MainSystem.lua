@@ -1,9 +1,9 @@
 local MainSystem = require(game.ReplicatedStorage.Source.System).extend()
 
-function MainSystem:load()
-	self.playerSystem = self.create(game.ReplicatedStorage.Systems.PlayerSystem, self.eventManager, self.entityManager, self.componentManager, self.world, self.camera)
+function MainSystem:init()
+	self.playerSystem = self:create(game.ReplicatedStorage.Modules.Essentials.Systems.PlayerSystem)
+    self.playerSystem:init()
     self.playerSystem:load()
-    self.playerSystem:afterLoad()
 end
 
 return MainSystem

@@ -1,9 +1,8 @@
 local MainSystem = require(game.ReplicatedStorage.Source.System).extend()
 
-function MainSystem:load()
+function MainSystem:init()
 	
-	self.sceneManagerSystem = self:create(game.ReplicatedStorage.Systems.SceneManagerSystem)
-	self.sceneManagerSystem:load()
+	self.sceneManagerSystem = self:create(game.ReplicatedStorage.Modules.Essentials.Systems.SceneManagerSystem)
 
 	local system = {
 		script.Parent.Scenes.SelectExperienceMenu.Systems.ExperienceGridSystem,

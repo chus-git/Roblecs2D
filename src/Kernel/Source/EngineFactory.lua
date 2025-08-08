@@ -33,20 +33,12 @@ function EngineFactory.createClientEngine()
 	-- Usar cámara del Workspace
 	camera = workspace.CurrentCamera
 	camera.CameraType = Enum.CameraType.Scriptable
-	camera.CFrame = CFrame.lookAt(Vector3.new(0, 0, -10000), Vector3.new(0, 0, 0))
+	camera.CFrame = CFrame.lookAt(Vector3.new(0, 0, -500), Vector3.new(0, 0, 0))
 	camera.FieldOfView = 2
 
-	local MainSystemModule = game.StarterPlayer.StarterPlayerScripts.Client.Systems.MainSystem
+	local MainSystem = require(game.StarterPlayer.StarterPlayerScripts.Client.Systems.MainSystem)
 
-	local mainSystem = System.create(
-		MainSystemModule,
-		eventManager,
-		entityManager,
-		componentManager,
-		world,
-		camera,
-		screenGui
-	)
+	local mainSystem = MainSystem.new(eventManager, entityManager, componentManager, world, camera, screenGui)
 
 	local timeAccumulator = 0
 	local fixeddt = 1 / 24
@@ -75,7 +67,7 @@ function EngineFactory.createClientEngine()
 		eventManager:emit(eventName, ...)
 	end)
 
-	EngineFactor.resetClient()
+	EngineFactory.resetClient()
 
 	return engine
 
@@ -87,10 +79,9 @@ function EngineFactory.createServerEngine()
 	local entityManager = EntityManager.new()
 	local componentManager = ComponentManager.new()
 
-	local MainSystemModule = game.ServerScriptService.Server.Systems.MainSystem
+	local MainSystem = require(game.ServerScriptService.Server.Systems.MainSystem)
 
-	local mainSystem = System.create(
-		MainSystemModule,
+	local mainSystem = MainSystem.new(
 		eventManager,
 		entityManager,
 		componentManager

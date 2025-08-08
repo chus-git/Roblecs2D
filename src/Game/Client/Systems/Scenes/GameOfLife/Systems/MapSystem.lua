@@ -1,7 +1,7 @@
 local CreateCellEvent = require(script.Parent.Parent.Events.CreateCellEvent)
 local CellCreatedEvent = require(script.Parent.Parent.Events.CellCreatedEvent)
 local ToggleCellEvent = require(script.Parent.Parent.Events.ToggleCellEvent)
-local PositionComponent = require(game.ReplicatedStorage.Components.PositionComponent)
+local PositionComponent = require(game.ReplicatedStorage.Modules.Essentials.Components.PositionComponent)
 local State = require(script.Parent.Parent.Components.State)
 
 local MapSystem = require(game.ReplicatedStorage.Source.System).extend()
@@ -9,7 +9,7 @@ local MapSystem = require(game.ReplicatedStorage.Source.System).extend()
 local MAP_WIDTH = 51
 local MAP_HEIGHT = 51
 
-function MapSystem:load()
+function MapSystem:init()
 
 	self.map = {}
 
@@ -82,7 +82,7 @@ function MapSystem:update(dt)
 	
 end
 
-function MapSystem:afterLoad()
+function MapSystem:load()
 	local function centeredRange(size)
 		local half = size / 2
 		local start = -half + 0.5

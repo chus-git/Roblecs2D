@@ -9,8 +9,11 @@ local MiniGames = {
 		script.Parent.Parent.Parent.GameOfLife.Systems.RenderSystem,
 	}},
 	{Name = "Demo", Systems = {
-		script.Parent.Parent.Parent.Demo.Systems.MainSystem,
 		game.ReplicatedStorage.Modules.Essentials.Systems.SpriteManagerSystem,
+		game.ReplicatedStorage.Modules.Essentials.Systems.InterpolationSystem,
+		game.ReplicatedStorage.Modules.Essentials.Systems.RenderSystem,
+		
+		script.Parent.Parent.Parent.Demo.Systems.MainSystem,
 	}},
 }
 

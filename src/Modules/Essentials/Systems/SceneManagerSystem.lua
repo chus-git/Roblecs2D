@@ -1,8 +1,8 @@
-local LoadSceneEvent = require(script.Parent.Scenes.SelectExperienceMenu.Events.LoadSceneEvent)
+local LoadSceneEvent = require(game.ReplicatedStorage.Modules.Essentials.Events.LoadSceneEvent)
 
 local SceneManagerSystem = require(game.ReplicatedStorage.Source.System).extend()
 
-function SceneManagerSystem:load()
+function SceneManagerSystem:init()
 	
 	self.systems = {}
 	
@@ -25,10 +25,6 @@ function SceneManagerSystem:loadScene(SystemModules)
 
 	for _, system in ipairs(self.systems) do
 		system:load()
-	end
-
-	for _, system in ipairs(self.systems) do
-		system:afterLoad()
 	end
 	
 	print("[SceneManagerSystem] Loaded " .. #self.systems .. " systems")
