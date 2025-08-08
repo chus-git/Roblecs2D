@@ -2,11 +2,9 @@ local SpriteComponent = require(game.ReplicatedStorage.Source.Component).extend(
 
 SpriteComponent.name = "SpriteComponent"
 
-SpriteComponent.constructor = function(imageId: string, width: number, height: number)
+SpriteComponent.constructor = function(imageId: string)
 	return {
-		imageId = imageId,
-		width = width,
-		height = height
+		imageId = imageId
 	}
 end
 

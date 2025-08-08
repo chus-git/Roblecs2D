@@ -2,6 +2,8 @@ local RenderPositionComponent = require(game.ReplicatedStorage.Modules.Essential
 local PositionInterpolationComponent = require(game.ReplicatedStorage.Modules.Essentials.Components.PositionInterpolationComponent)
 local RenderRotationComponent = require(game.ReplicatedStorage.Modules.Essentials.Components.RenderRotationComponent)
 local RotationInterpolationComponent = require(game.ReplicatedStorage.Modules.Essentials.Components.RotationInterpolationComponent)
+local RenderSizeComponent = require(game.ReplicatedStorage.Modules.Essentials.Components.RenderSizeComponent)
+local SizeInterpolationComponent = require(game.ReplicatedStorage.Modules.Essentials.Components.SizeInterpolationComponent)
 
 local RenderSystem = require(game.ReplicatedStorage.Source.System).extend()
 
@@ -9,6 +11,7 @@ function RenderSystem:render(dt, alpha)
 
 	self:renderPosition(dt, alpha)
 	self:renderRotation(dt, alpha)
+	self:renderSize(dt, alpha)
 
 end
 
@@ -50,6 +53,27 @@ function RenderSystem:renderRotation(dt, alpha)
 		local renderRotationComponent = self:getComponent(entity, RenderRotationComponent)
 
 		renderRotationComponent.angle = rotationInterpolationComponent.previous + (rotationInterpolationComponent.target - rotationInterpolationComponent.previous) * alpha
+
+	end
+
+end
+
+function RenderSystem:renderSize(dt, alpha)
+
+	local entitiesWithSizeInterpolation = self:getEntitiesWithComponent(SizeInterpolationComponent)
+
+	for _, entity in ipairs(entitiesWithSizeInterpolation) do
+
+		local sizeInterpolationComponent = self:getComponent(entity, SizeInterpolationComponent)
+
+		if not self:hasComponent(entity, RenderSizeComponent) then
+			self:addComponent(entity, RenderSizeComponent(sizeInterpolationComponent.previous.width, sizeInterpolationComponent.previous.height))
+		end
+
+		local renderSizeComponent = self:getComponent(entity, RenderSizeComponent)
+
+		renderSizeComponent.width = sizeInterpolationComponent.previous.width + (sizeInterpolationComponent.target.width - sizeInterpolationComponent.previous.width) * alpha
+		renderSizeComponent.height = sizeInterpolationComponent.previous.height + (sizeInterpolationComponent.target.height - sizeInterpolationComponent.previous.height) * alpha
 
 	end
 

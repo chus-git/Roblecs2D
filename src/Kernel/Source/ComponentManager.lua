@@ -17,6 +17,9 @@ function ComponentManager:addComponent(entity, componentName, componentData)
 end
 
 function ComponentManager:getComponent(entity, component)
+	if not self.components[component.name] then
+		return nil
+	end
 	return self.components[component.name][entity]
 end
 

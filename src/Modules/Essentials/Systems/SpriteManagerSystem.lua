@@ -1,63 +1,98 @@
 local SpriteComponent = require(game.ReplicatedStorage.Modules.Essentials.Components.SpriteComponent)
+
 local PositionComponent = require(game.ReplicatedStorage.Modules.Essentials.Components.PositionComponent)
 local RenderPositionComponent = require(game.ReplicatedStorage.Modules.Essentials.Components.RenderPositionComponent)
 local PositionInterpolationComponent = require(game.ReplicatedStorage.Modules.Essentials.Components.PositionInterpolationComponent)
+
 local RotationComponent = require(game.ReplicatedStorage.Modules.Essentials.Components.RotationComponent)
 local RenderRotationComponent = require(game.ReplicatedStorage.Modules.Essentials.Components.RenderRotationComponent)
 local RotationInterpolationComponent = require(game.ReplicatedStorage.Modules.Essentials.Components.RotationInterpolationComponent)
+
+local SizeComponent = require(game.ReplicatedStorage.Modules.Essentials.Components.SizeComponent)
+local RenderSizeComponent = require(game.ReplicatedStorage.Modules.Essentials.Components.RenderSizeComponent)
+local SizeInterpolationComponent = require(game.ReplicatedStorage.Modules.Essentials.Components.SizeInterpolationComponent)
 
 local SpriteManagerSystem = require(game.ReplicatedStorage.Source.System).extend()
 
 function SpriteManagerSystem:init()
 
+    self.STUDS_PER_PIXEL = 1 / (self.camera.FieldOfView / 20)
+
     self.images = {}
 	
 end
 
-function SpriteManagerSystem:render(dt, alpha)
-
-    local STUDS_PER_PIXEL = 1 / (self.camera.FieldOfView / 20)
+function SpriteManagerSystem:update(dt)
 
     local entities = self:getEntitiesWithComponent(SpriteComponent)
 
     for _, entityId in ipairs(entities) do
 
-        local positionComponent = self:getComponent(entityId, PositionComponent)
-        local rotationComponent = self:getComponent(entityId, RotationComponent)
-
-        if not self:hasComponent(entityId, RenderPositionComponent) then
-            self:addComponent(entityId, RenderPositionComponent(positionComponent.x, positionComponent.y))
-        end
-
-        if not self:hasComponent(entityId, RenderRotationComponent) then
-            self:addComponent(entityId, RenderRotationComponent(rotationComponent.angle))
-        end
-        
         local spriteComponent = self:getComponent(entityId, SpriteComponent)
-        local renderPositionComponent = self:getComponent(entityId, RenderPositionComponent)
-        local renderRotationComponent = self:getComponent(entityId, RenderRotationComponent)
 
-        local image = self.images[entityId]
+        -- Creamos los componentes que no existan
 
-        if not image then
-            image = self:createImage(spriteComponent.imageId, positionComponent.x, positionComponent.y, spriteComponent.width, spriteComponent.height)
-            self.images[entityId] = image
+        local positionComponent = self:getComponent(entityId, PositionComponent)
+        if not positionComponent then
+            positionComponent = self:addComponent(entityId, PositionComponent(0, 0))
         end
+
+        local renderPositionComponent = self:getComponent(entityId, RenderPositionComponent)
+        if not renderPositionComponent then
+            renderPositionComponent = self:addComponent(entityId, RenderPositionComponent(positionComponent.x, positionComponent.y))
+        end
+
+        local rotationComponent = self:getComponent(entityId, RotationComponent)
+        if not rotationComponent then
+            rotationComponent = self:addComponent(entityId, RotationComponent(0))
+        end
+
+        local renderRotationComponent = self:getComponent(entityId, RenderRotationComponent)
+        if not renderRotationComponent then
+            renderRotationComponent = self:addComponent(entityId, RenderRotationComponent(rotationComponent.angle))
+        end
+
+        local sizeComponent = self:getComponent(entityId, SizeComponent)
+        if not sizeComponent then
+            sizeComponent = self:addComponent(entityId, SizeComponent(1, 1))
+        end
+
+        local renderSizeComponent = self:getComponent(entityId, RenderSizeComponent)
+        if not renderSizeComponent then
+            renderSizeComponent = self:addComponent(entityId, RenderSizeComponent(sizeComponent.width, sizeComponent.height))
+        end
+
+        -- Inicializamos la imagen
+        self.images[entityId] = self:createImage(spriteComponent.imageId, positionComponent.x, positionComponent.y, sizeComponent.width, sizeComponent.height)
+       
+        self:removeComponent(entityId, SpriteComponent) -- Eliminamos el componente SpriteComponent al ser ya inicializado
+
+    end
+
+
+end
+
+function SpriteManagerSystem:render(dt, alpha)
+
+    for entityId, image in pairs(self.images) do
+
         local part = image.Parent.Parent
-        local billboard = image.Parent
+        local surfaceGui = image.Parent
 
         -- Actualizar posición
+        local renderPositionComponent = self:getComponent(entityId, RenderPositionComponent)
         part.Position = Vector3.new(-renderPositionComponent.x, renderPositionComponent.y, 0)
 
         -- Actualizar rotación
+        local renderRotationComponent = self:getComponent(entityId, RenderRotationComponent)
         part.CFrame = CFrame.new(part.Position) * CFrame.Angles(0, 0, renderRotationComponent.angle)
 
-        -- Actualizar tamaño del Part (en studs)
-        --part.Size = Vector3.new(spriteComponent.width, spriteComponent.height, 1)
+        -- Actualizar tamaño
+        local renderSizeComponent = self:getComponent(entityId, RenderSizeComponent)
+        part.Size = Vector3.new(renderSizeComponent.width, renderSizeComponent.height, 1)
 
-        -- Actualizar tamaño del BillboardGui (en píxeles)
-        --billboard.Size = UDim2.new(0, spriteComponent.width * STUDS_PER_PIXEL, 0, spriteComponent.height * STUDS_PER_PIXEL)
     end
+
 end
 
 function SpriteManagerSystem:unload()
@@ -69,28 +104,29 @@ end
 
 ---
 
+function SpriteManagerSystem:hasToBeInitialized(entityId)
+    return self.images[entityId] == nil and
+            self:hasComponent(entityId, SpriteComponent) and
+            self:hasComponent(entityId, PositionComponent)
+end
+
 function SpriteManagerSystem:createImage(imageId: string, x: number, y: number, width: number, height: number)
 
-    local STUDS_PER_PIXEL = 1 / (self.camera.FieldOfView / 20)
-
-    -- Crear el Part plano (como un panel 2D)
     local part = Instance.new("Part")
-    part.Size = Vector3.new(width, height, 0.1) -- muy delgado en Z
+    part.Size = Vector3.new(width, height, 0.1)
     part.Anchored = true
     part.CanCollide = false
-    part.Transparency = 1 -- si quieres invisible o pon color para debug
+    part.Transparency = 1
     part.Position = Vector3.new(x, y, 0)
     part.Parent = workspace
 
-    -- Crear SurfaceGui en la cara del Part que mire a la cámara
     local surfaceGui = Instance.new("SurfaceGui")
-    surfaceGui.Face = Enum.NormalId.Front -- depende de cómo lo orientas
+    surfaceGui.Face = Enum.NormalId.Front
     surfaceGui.Adornee = part
     surfaceGui.AlwaysOnTop = true
     surfaceGui.ResetOnSpawn = false
     surfaceGui.Parent = part
 
-    -- Añadir la imagen al SurfaceGui
     local imageLabel = Instance.new("ImageLabel")
     imageLabel.Size = UDim2.new(1, 0, 1, 0)
     imageLabel.BackgroundTransparency = 1
