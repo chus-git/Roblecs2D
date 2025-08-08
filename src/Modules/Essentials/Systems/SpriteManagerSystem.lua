@@ -1,9 +1,12 @@
-local SpriteManagerSystem = require(game.ReplicatedStorage.Source.System).extend()
-
 local SpriteComponent = require(game.ReplicatedStorage.Modules.Essentials.Components.SpriteComponent)
 local PositionComponent = require(game.ReplicatedStorage.Modules.Essentials.Components.PositionComponent)
 local RenderPositionComponent = require(game.ReplicatedStorage.Modules.Essentials.Components.RenderPositionComponent)
 local PositionInterpolationComponent = require(game.ReplicatedStorage.Modules.Essentials.Components.PositionInterpolationComponent)
+local RotationComponent = require(game.ReplicatedStorage.Modules.Essentials.Components.RotationComponent)
+local RenderRotationComponent = require(game.ReplicatedStorage.Modules.Essentials.Components.RenderRotationComponent)
+local RotationInterpolationComponent = require(game.ReplicatedStorage.Modules.Essentials.Components.RotationInterpolationComponent)
+
+local SpriteManagerSystem = require(game.ReplicatedStorage.Source.System).extend()
 
 function SpriteManagerSystem:init()
 
@@ -20,13 +23,19 @@ function SpriteManagerSystem:render(dt, alpha)
     for _, entityId in ipairs(entities) do
 
         local positionComponent = self:getComponent(entityId, PositionComponent)
+        local rotationComponent = self:getComponent(entityId, RotationComponent)
 
         if not self:hasComponent(entityId, RenderPositionComponent) then
             self:addComponent(entityId, RenderPositionComponent(positionComponent.x, positionComponent.y))
         end
+
+        if not self:hasComponent(entityId, RenderRotationComponent) then
+            self:addComponent(entityId, RenderRotationComponent(rotationComponent.angle))
+        end
         
         local spriteComponent = self:getComponent(entityId, SpriteComponent)
         local renderPositionComponent = self:getComponent(entityId, RenderPositionComponent)
+        local renderRotationComponent = self:getComponent(entityId, RenderRotationComponent)
 
         local image = self.images[entityId]
 
@@ -34,12 +43,14 @@ function SpriteManagerSystem:render(dt, alpha)
             image = self:createImage(spriteComponent.imageId, positionComponent.x, positionComponent.y, spriteComponent.width, spriteComponent.height)
             self.images[entityId] = image
         end
-
         local part = image.Parent.Parent
         local billboard = image.Parent
 
         -- Actualizar posición
         part.Position = Vector3.new(-renderPositionComponent.x, renderPositionComponent.y, 0)
+
+        -- Actualizar rotación
+        part.CFrame = CFrame.new(part.Position) * CFrame.Angles(0, 0, renderRotationComponent.angle)
 
         -- Actualizar tamaño del Part (en studs)
         --part.Size = Vector3.new(spriteComponent.width, spriteComponent.height, 1)
@@ -87,7 +98,7 @@ function SpriteManagerSystem:createImage(imageId: string, x: number, y: number, 
     imageLabel.Image = imageId
     imageLabel.Parent = surfaceGui
 
-    return image
+    return imageLabel
 
 end
 

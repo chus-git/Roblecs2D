@@ -41,7 +41,7 @@ function EngineFactory.createClientEngine()
 	local mainSystem = MainSystem.new(eventManager, entityManager, componentManager, world, camera, screenGui)
 
 	local timeAccumulator = 0
-	local fixeddt = 1 / 24
+	local fixeddt = 1 / 20
 
 	local loop = function(self)
 		RunService.RenderStepped:Connect(function(dt)
