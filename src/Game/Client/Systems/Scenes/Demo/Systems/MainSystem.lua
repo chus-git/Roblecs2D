@@ -9,26 +9,36 @@ function MainSystem:init()
 
     self.entities = {}
 
-    for x = -50, 0 do
-        for y = -5, 5 do
-            local entityId = self:createEntity()
-            self:addComponent(entityId, PositionComponent(x * 1, y * 1))
-            self:addComponent(entityId, SizeComponent(1, 1))
-            self:addComponent(entityId, RotationComponent(0))
-            self:addComponent(entityId, SpriteComponent("rbxassetid://132488562992832"))
-            self.entities[entityId] = entityId
-        end
+    self.accumultatedTime = 0
+
+end
+
+
+function MainSystem:render(dt, alpha)
+    
+    self.accumultatedTime += dt
+
+    if self.accumultatedTime > 0.5 then
+        
+        self.accumultatedTime = 0
+        local entityId = self:createEntity()
+        local sprite = self:addComponent(entityId, SpriteComponent("rbxassetid://132488562992832"))
+        self.entities[entityId] = entityId
+
     end
 
 end
 
-function MainSystem:update(dt)
+function MainSystem:afterUpdate(dt)
     for entityId, entity in pairs(self.entities) do
+        if not self:hasComponent(entityId, PositionComponent) then
+            continue
+        end
         local positionComponent = self:getComponent(entityId, PositionComponent)
         local rotationComponent = self:getComponent(entityId, RotationComponent)
         positionComponent.x += 5 * dt
         positionComponent.y += 0
-        --rotationComponent.angle += dt
+        rotationComponent.angle += dt
     end
 end
 

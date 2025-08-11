@@ -2,18 +2,15 @@
   "name": "roblecs",
   "tree": {
     "$className": "DataModel",
-
     "ReplicatedStorage": {
       "Source": { "$path": "src/Kernel/Source" },
       "Modules" : { "$path": "src/Modules" },
       "GameEventManager": { "$className": "RemoteEvent" }
     },
-
     "ServerScriptService": {
       "Server": { "$path": "src/Game/Server" },
       "EntryPoint": { "$path": "src/Kernel/Server" }
     },
-
     "StarterPlayer": {
       "StarterPlayerScripts": {
         "Client": { "$path": "src/Game/Client" },

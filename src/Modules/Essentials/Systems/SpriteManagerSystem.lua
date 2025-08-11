@@ -25,8 +25,8 @@ end
 function SpriteManagerSystem:update(dt)
 
     local entities = self:getEntitiesWithComponent(SpriteComponent)
-
-    for _, entityId in ipairs(entities) do
+        print("Updating entity", entities)
+    for _, entityId in pairs(entities) do
 
         local spriteComponent = self:getComponent(entityId, SpriteComponent)
 
@@ -118,7 +118,7 @@ function SpriteManagerSystem:createImage(imageId: string, x: number, y: number, 
     part.CanCollide = false
     part.Transparency = 1
     part.Position = Vector3.new(x, y, 0)
-    part.Parent = workspace
+    part.Parent = self.world
 
     local surfaceGui = Instance.new("SurfaceGui")
     surfaceGui.Face = Enum.NormalId.Front
