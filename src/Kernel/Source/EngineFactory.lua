@@ -11,27 +11,31 @@ local ComponentManager = require(game.ReplicatedStorage.Source.ComponentManager)
 
 local EngineFactory = {}
 
+function EngineFactory.create()
+	if RunService:IsClient() then
+		return EngineFactory.createClientEngine()
+	else
+		return EngineFactory.createServerEngine()
+	end
+end
+
 function EngineFactory.createClientEngine()
 
 	local eventManager = EventManager.new(remoteEvent)
 	local entityManager = EntityManager.new()
 	local componentManager = ComponentManager.new()
-	local world, camera, screenGui
-	local playerGui = Players.LocalPlayer:WaitForChild("PlayerGui")
 
-	screenGui = Instance.new("ScreenGui")
+	local screenGui = Instance.new("ScreenGui")
 	screenGui.Name = "GameCanvas"
 	screenGui.IgnoreGuiInset = true
 	screenGui.ResetOnSpawn = false
-	screenGui.Parent = playerGui
+	screenGui.Parent = Players.LocalPlayer:WaitForChild("PlayerGui")
 
-	-- Crear carpeta "World" en lugar de ViewportFrame
-	world = Instance.new("Folder")
+	local world = Instance.new("Folder")
 	world.Name = "World"
 	world.Parent = workspace
 
-	-- Usar cámara del Workspace
-	camera = workspace.CurrentCamera
+	local camera = workspace.CurrentCamera
 	camera.CameraType = Enum.CameraType.Scriptable
 	camera.CFrame = CFrame.lookAt(Vector3.new(0, 0, -500), Vector3.new(0, 0, 0))
 	camera.FieldOfView = 2
@@ -119,14 +123,6 @@ function EngineFactory.createServerEngine()
 
 	return engine
 
-end
-
-function EngineFactory.create()
-	if RunService:IsClient() then
-		return EngineFactory.createClientEngine()
-	else
-		return EngineFactory.createServerEngine()
-	end
 end
 
 function EngineFactory.resetClient()

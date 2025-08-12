@@ -39,14 +39,6 @@ function EventManager:on(event, callback)
 
 end
 
-function EventManager:_resolveEvent(event, ...)
-	if typeof(event) == "string" then
-		return event, { ... }
-	else
-		return event(...)
-	end
-end
-
 function EventManager:emit(event, ...)
 	local eventName, args = self:_resolveEvent(event, ...)
 	table.insert(self.queue, {
@@ -81,6 +73,14 @@ function EventManager:flush()
 		end
 	end
 	table.clear(self.queue)
+end
+
+function EventManager:_resolveEvent(event, ...)
+	if typeof(event) == "string" then
+		return event, { ... }
+	else
+		return event(...)
+	end
 end
 
 return EventManager

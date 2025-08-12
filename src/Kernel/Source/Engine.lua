@@ -6,17 +6,12 @@ function Engine.new(mainSystem, eventManager, loop)
 	self.mainSystem = mainSystem
 	self.eventManager = eventManager
 	self.loop = loop
-	self:init()
 	self:start()
 	return self
 end
 
-function Engine:init()
-	self.mainSystem:init()
-	self.mainSystem:load()
-end
-
 function Engine:start()
+	self.mainSystem:load()
 	self.loop(self)
 end
 
