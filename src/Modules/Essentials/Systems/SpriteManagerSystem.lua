@@ -16,8 +16,6 @@ local SpriteManagerSystem = require(game.ReplicatedStorage.Source.System).extend
 
 function SpriteManagerSystem:init()
 
-    self.STUDS_PER_PIXEL = 1 / (self.camera.FieldOfView / 20)
-
     self.images = {}
 	
 end
@@ -25,38 +23,48 @@ end
 function SpriteManagerSystem:update(dt)
 
     local entities = self:getEntitiesWithComponent(SpriteComponent)
-        print("Updating entity", entities)
+
     for _, entityId in pairs(entities) do
 
         local spriteComponent = self:getComponent(entityId, SpriteComponent)
 
-        -- Creamos los componentes que no existan
-
+        -- Position components
         local positionComponent = self:getComponent(entityId, PositionComponent)
         if not positionComponent then
             positionComponent = self:addComponent(entityId, PositionComponent(0, 0))
         end
-
+        local positionInterpolationComponent = self:getComponent(entityId, PositionInterpolationComponent)
+        if not positionInterpolationComponent then
+            positionInterpolationComponent = self:addComponent(entityId, PositionInterpolationComponent(positionComponent.x, positionComponent.y))
+        end
         local renderPositionComponent = self:getComponent(entityId, RenderPositionComponent)
         if not renderPositionComponent then
             renderPositionComponent = self:addComponent(entityId, RenderPositionComponent(positionComponent.x, positionComponent.y))
         end
 
+        -- Rotation components
         local rotationComponent = self:getComponent(entityId, RotationComponent)
         if not rotationComponent then
             rotationComponent = self:addComponent(entityId, RotationComponent(0))
         end
-
+        local rotationInterpolationComponent = self:getComponent(entityId, RotationInterpolationComponent)
+        if not rotationInterpolationComponent then
+            rotationInterpolationComponent = self:addComponent(entityId, RotationInterpolationComponent(rotationComponent.angle))
+        end
         local renderRotationComponent = self:getComponent(entityId, RenderRotationComponent)
         if not renderRotationComponent then
             renderRotationComponent = self:addComponent(entityId, RenderRotationComponent(rotationComponent.angle))
         end
 
+        -- Size components
         local sizeComponent = self:getComponent(entityId, SizeComponent)
         if not sizeComponent then
             sizeComponent = self:addComponent(entityId, SizeComponent(1, 1))
         end
-
+        local sizeInterpolationComponent = self:getComponent(entityId, SizeInterpolationComponent)
+        if not sizeInterpolationComponent then
+            sizeInterpolationComponent = self:addComponent(entityId, SizeInterpolationComponent(sizeComponent.width, sizeComponent.height))
+        end
         local renderSizeComponent = self:getComponent(entityId, RenderSizeComponent)
         if not renderSizeComponent then
             renderSizeComponent = self:addComponent(entityId, RenderSizeComponent(sizeComponent.width, sizeComponent.height))

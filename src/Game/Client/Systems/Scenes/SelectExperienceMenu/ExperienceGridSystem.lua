@@ -3,17 +3,17 @@ local LoadSceneEvent = require(game.ReplicatedStorage.Modules.Essentials.Events.
 local ExperienceGridSystem = require(game.ReplicatedStorage.Source.System).extend()
 
 local MiniGames = {
-	{Name = "Game of Life", Systems = {
-		script.Parent.Parent.Parent.GameOfLife.Systems.InputSystem,
-		script.Parent.Parent.Parent.GameOfLife.Systems.MapSystem,
-		script.Parent.Parent.Parent.GameOfLife.Systems.RenderSystem,
-	}},
 	{Name = "Demo", Systems = {
+		script.Parent.Parent.Demo.MainSystem,
 		game.ReplicatedStorage.Modules.Essentials.Systems.SpriteManagerSystem,
 		game.ReplicatedStorage.Modules.Essentials.Systems.InterpolationSystem,
 		game.ReplicatedStorage.Modules.Essentials.Systems.RenderSystem,
-		
-		script.Parent.Parent.Parent.Demo.Systems.MainSystem,
+	}},
+	{Name = "Levels", Systems = {
+		script.Parent.Parent.Levels.MainSystem,
+		game.ReplicatedStorage.Modules.Essentials.Systems.SpriteManagerSystem,
+		game.ReplicatedStorage.Modules.Essentials.Systems.InterpolationSystem,
+		game.ReplicatedStorage.Modules.Essentials.Systems.RenderSystem,
 	}},
 }
 

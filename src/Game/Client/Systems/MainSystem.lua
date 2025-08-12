@@ -5,9 +5,9 @@ function MainSystem:init()
 	self.sceneManagerSystem = self:create(game.ReplicatedStorage.Modules.Essentials.Systems.SceneManagerSystem)
 
 	self.sceneManagerSystem:loadScene({
-		script.Parent.Scenes.SelectExperienceMenu.Systems.ExperienceGridSystem,
+		script.Parent.Scenes.SelectExperienceMenu.ExperienceGridSystem,
 	})
-
+	
 end
 
 function MainSystem:beforeUpdate(dt)

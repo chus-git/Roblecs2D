@@ -2,15 +2,15 @@ local PositionInterpolationComponent = require(game.ReplicatedStorage.Source.Com
 
 PositionInterpolationComponent.name = "PositionInterpolationComponent"
 
-PositionInterpolationComponent.constructor = function(x, y)
+PositionInterpolationComponent.constructor = function(previousX, previousY, targetX, targetY)
 	return {
 		previous = {
-            x = x,
-            y = y
+            x = previousX,
+            y = previousY
         },
         target = {
-            x = x,
-            y = y
+            x = targetX or previousX,
+            y = targetY or previousY
         }
 	}
 end

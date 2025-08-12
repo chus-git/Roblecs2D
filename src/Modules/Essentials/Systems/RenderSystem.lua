@@ -19,37 +19,27 @@ end
 
 function RenderSystem:renderPosition(dt, alpha)
 
-	local entitiesWithPositionInterpolation = self:getEntitiesWithComponent(PositionInterpolationComponent)
+	local entitiesWithRenderPositionComponent = self:getEntitiesWithComponent(RenderPositionComponent)
 
-	for _, entity in ipairs(entitiesWithPositionInterpolation) do
+	for _, entity in ipairs(entitiesWithRenderPositionComponent) do
 
         local positionInterpolationComponent = self:getComponent(entity, PositionInterpolationComponent)
-
-        if not self:hasComponent(entity, RenderPositionComponent) then
-            self:addComponent(entity, RenderPositionComponent(positionInterpolationComponent.previous.x, positionInterpolationComponent.previous.y))
-        end
-
 		local renderPositionComponent = self:getComponent(entity, RenderPositionComponent)
 
 		renderPositionComponent.x = positionInterpolationComponent.previous.x + (positionInterpolationComponent.target.x - positionInterpolationComponent.previous.x) * alpha
 		renderPositionComponent.y = positionInterpolationComponent.previous.y + (positionInterpolationComponent.target.y - positionInterpolationComponent.previous.y) * alpha
-
+		
 	end
 
 end
 
 function RenderSystem:renderRotation(dt, alpha)
 
-	local entitiesWithRotationInterpolation = self:getEntitiesWithComponent(RotationInterpolationComponent)
+	local entitiesWithRenderRotationComponent = self:getEntitiesWithComponent(RenderRotationComponent)
 
-	for _, entity in ipairs(entitiesWithRotationInterpolation) do
+	for _, entity in ipairs(entitiesWithRenderRotationComponent) do
 
         local rotationInterpolationComponent = self:getComponent(entity, RotationInterpolationComponent)
-
-        if not self:hasComponent(entity, RenderRotationComponent) then
-            self:addComponent(entity, RenderRotationComponent(rotationInterpolationComponent.previous))
-        end
-
 		local renderRotationComponent = self:getComponent(entity, RenderRotationComponent)
 
 		renderRotationComponent.angle = rotationInterpolationComponent.previous + (rotationInterpolationComponent.target - rotationInterpolationComponent.previous) * alpha
@@ -60,16 +50,11 @@ end
 
 function RenderSystem:renderSize(dt, alpha)
 
-	local entitiesWithSizeInterpolation = self:getEntitiesWithComponent(SizeInterpolationComponent)
+	local entitiesWithRenderSizeComponent = self:getEntitiesWithComponent(RenderSizeComponent)
 
-	for _, entity in ipairs(entitiesWithSizeInterpolation) do
+	for _, entity in ipairs(entitiesWithRenderSizeComponent) do
 
 		local sizeInterpolationComponent = self:getComponent(entity, SizeInterpolationComponent)
-
-		if not self:hasComponent(entity, RenderSizeComponent) then
-			self:addComponent(entity, RenderSizeComponent(sizeInterpolationComponent.previous.width, sizeInterpolationComponent.previous.height))
-		end
-
 		local renderSizeComponent = self:getComponent(entity, RenderSizeComponent)
 
 		renderSizeComponent.width = sizeInterpolationComponent.previous.width + (sizeInterpolationComponent.target.width - sizeInterpolationComponent.previous.width) * alpha

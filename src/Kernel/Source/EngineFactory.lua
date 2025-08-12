@@ -43,9 +43,10 @@ function EngineFactory.createClientEngine()
 	local MainSystem = require(game.StarterPlayer.StarterPlayerScripts.Client.Systems.MainSystem)
 
 	local mainSystem = MainSystem.new(eventManager, entityManager, componentManager, world, camera, screenGui)
+	mainSystem:init()
 
 	local timeAccumulator = 0
-	local fixeddt = 1 / 20
+	local fixeddt = 1 / 30
 
 	local loop = function(self)
 		RunService.RenderStepped:Connect(function(dt)
@@ -90,9 +91,10 @@ function EngineFactory.createServerEngine()
 		entityManager,
 		componentManager
 	)
+	mainSystem:init()
 
 	local timeAccumulator = 0
-	local fixeddt = 1 / 24
+	local fixeddt = 1 / 10
 
 	local loop = function(self)
 		RunService.Stepped:Connect(function(_, dt)
