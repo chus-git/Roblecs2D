@@ -4,12 +4,16 @@ local PositionInterpolationComponent = require(game.ReplicatedStorage.Modules.Es
 local RotationComponent = require(game.ReplicatedStorage.Modules.Essentials.Components.RotationComponent)
 local RotationInterpolationComponent = require(game.ReplicatedStorage.Modules.Essentials.Components.RotationInterpolationComponent)
 
+local SizeComponent = require(game.ReplicatedStorage.Modules.Essentials.Components.SizeComponent)
+local SizeInterpolationComponent = require(game.ReplicatedStorage.Modules.Essentials.Components.SizeInterpolationComponent)
+
 local InterpolationSystem = require(game.ReplicatedStorage.Source.System).extend()
 
 function InterpolationSystem:update(dt)
 	
 	self:interpolatePosition()
 	self:interpolateRotation()
+	self:interpolateSize()
 
 end
 
@@ -46,6 +50,25 @@ function InterpolationSystem:interpolateRotation()
 		rotationInterpolationComponent.previous = rotationInterpolationComponent.target
 
 		rotationInterpolationComponent.target = rotationComponent.angle
+
+	end
+
+end
+
+function InterpolationSystem:interpolateSize()
+
+	local entitiesWithSizeInterpolationComponent = self:getEntitiesWithComponent(SizeInterpolationComponent)
+
+	for _, entity in ipairs(entitiesWithSizeInterpolationComponent) do
+
+		local sizeComponent = self:getComponent(entity, SizeComponent)
+		local sizeInterpolationComponent = self:getComponent(entity, SizeInterpolationComponent)
+
+		sizeInterpolationComponent.previous.width = sizeInterpolationComponent.target.width
+		sizeInterpolationComponent.previous.height = sizeInterpolationComponent.target.height
+
+		sizeInterpolationComponent.target.width = sizeComponent.width
+		sizeInterpolationComponent.target.height = sizeComponent.height
 
 	end
 

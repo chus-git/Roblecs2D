@@ -30,6 +30,7 @@ function SpriteManagerSystem:update(dt)
 
         -- Position components
         local positionComponent = self:getComponent(entityId, PositionComponent)
+
         if not positionComponent then
             positionComponent = self:addComponent(entityId, PositionComponent(0, 0))
         end

@@ -15,6 +15,13 @@ local MiniGames = {
 		game.ReplicatedStorage.Modules.Essentials.Systems.InterpolationSystem,
 		game.ReplicatedStorage.Modules.Essentials.Systems.RenderSystem,
 	}},
+	{Name = "Love", Systems = {
+		script.Parent.Parent.Love.MainSystem,
+		game.ReplicatedStorage.Modules.Physics.Systems.CollisionSystem,
+		game.ReplicatedStorage.Modules.Essentials.Systems.SpriteManagerSystem,
+		game.ReplicatedStorage.Modules.Essentials.Systems.InterpolationSystem,
+		game.ReplicatedStorage.Modules.Essentials.Systems.RenderSystem,
+	}},
 }
 
 local function createMiniGameButton(parent, miniGame, onSelect)

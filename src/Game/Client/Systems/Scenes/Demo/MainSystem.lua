@@ -16,7 +16,7 @@ end
 
 
 function MainSystem:update(dt)
-    print("MainSystem:update", dt)
+
     self.accumultatedTime += dt
 
     if self.accumultatedTime >= 0.25 then
