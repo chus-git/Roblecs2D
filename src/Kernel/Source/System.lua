@@ -82,6 +82,11 @@ function System:on(event, callback)
 	table.insert(self._eventUnsubscribers, unsubscribe)
 end
 
+function System:onFire(event, callback)
+	local unsubscribe = self.eventManager:onFire(event, callback)
+	table.insert(self._eventUnsubscribers, unsubscribe)
+end
+
 function System:emit(event, ...)
 	return self.eventManager:emit(event, ...)
 end
@@ -96,6 +101,10 @@ end
 
 function System:emitToAllClients(event, ...)
 	return self.eventManager:emitToAllClients(event, ...)
+end
+
+function System:fire(event, ...)
+	return self.eventManager:fire(event, ...)
 end
 
 -- Entities

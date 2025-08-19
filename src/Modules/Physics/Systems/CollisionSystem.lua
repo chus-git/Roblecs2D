@@ -15,6 +15,7 @@ local function getCellCoords(x, y)
 end
 
 local function insertEntity(entity, collider, pos, rotation, grid)
+
     local minX, maxX, minY, maxY
 
     if collider.width then
@@ -33,7 +34,7 @@ local function insertEntity(entity, collider, pos, rotation, grid)
 
     local minCellX, minCellY = getCellCoords(minX, minY)
     local maxCellX, maxCellY = getCellCoords(maxX, maxY)
-    print("Inserting entity in grid:", entity, "from", minCellX, minCellY, "to", maxCellX, maxCellY)
+
     for cx = minCellX, maxCellX do
         for cy = minCellY, maxCellY do
             local key = cx .. "," .. cy
@@ -96,19 +97,19 @@ function CollisionSystem:update(dt)
     self.grid = {}
 
     -- Insert entities
-    for _, e in ipairs(self:getEntitiesWithComponent(RectColliderComponent)) do
+    for _, e in pairs(self:getEntitiesWithComponent(RectColliderComponent)) do
         local pos = self:getComponent(e, PositionComponent)
         local collider = self:getComponent(e, RectColliderComponent)
         local rotation = self:hasComponent(e, RotationComponent) and self:getComponent(e, RotationComponent) or nil
         insertEntity(e, collider, pos, rotation, self.grid)
     end
     
-    for _, e in ipairs(self:getEntitiesWithComponent(CircleColliderComponent)) do
+    for _, e in pairs(self:getEntitiesWithComponent(CircleColliderComponent)) do
         local pos = self:getComponent(e, PositionComponent)
         local collider = self:getComponent(e, CircleColliderComponent)
         insertEntity(e, collider, pos, nil, self.grid)
     end
-    print(self.grid)
+
     -- Check collisions per cell
     for _, cell in pairs(self.grid) do
         for i = 1, #cell do
@@ -128,6 +129,7 @@ function CollisionSystem:update(dt)
                 end
                 if collided then
                     self:emit(OnCollideEvent(a.entity, b.entity))
+                    self:fire(OnCollideEvent(a.entity, b.entity))
                 end
             end
         end

@@ -17,6 +17,7 @@ local MiniGames = {
 	}},
 	{Name = "Love", Systems = {
 		script.Parent.Parent.Love.MainSystem,
+		game.ReplicatedStorage.Modules.Physics.Systems.PhysicsSystem,
 		game.ReplicatedStorage.Modules.Physics.Systems.CollisionSystem,
 		game.ReplicatedStorage.Modules.Essentials.Systems.SpriteManagerSystem,
 		game.ReplicatedStorage.Modules.Essentials.Systems.InterpolationSystem,
