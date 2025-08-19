@@ -6,8 +6,8 @@ local OnCollideEvent = require(game.ReplicatedStorage.Modules.Physics.Events.OnC
 
 local CollisionSystem = require(game.ReplicatedStorage.Source.System).extend()
 
-local MAX_ENTITY_SIZE = 2
-local cellSize = MAX_ENTITY_SIZE * 2
+local MAX_ENTITY_SIZE = 1
+local cellSize = MAX_ENTITY_SIZE * 1
 
 -- Helpers
 local function getCellCoords(x, y)

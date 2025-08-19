@@ -209,6 +209,8 @@ function EngineFactory.resetClient()
 		atmosphere.Color = Color3.new(1, 1, 1)
 	end
 
+	local Lighting = game:GetService("Lighting")
+
 end
 
 return EngineFactory

@@ -5,6 +5,7 @@ local ExperienceGridSystem = require(game.ReplicatedStorage.Source.System).exten
 local MiniGames = {
 	{Name = "Demo", Systems = {
 		script.Parent.Parent.Demo.MainSystem,
+		game.ReplicatedStorage.Modules.Physics.Systems.CollisionSystem,
 		game.ReplicatedStorage.Modules.Essentials.Systems.SpriteManagerSystem,
 		game.ReplicatedStorage.Modules.Essentials.Systems.InterpolationSystem,
 		game.ReplicatedStorage.Modules.Essentials.Systems.RenderSystem,
