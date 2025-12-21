@@ -40,13 +40,13 @@ function EngineFactory.createClientEngine()
 	camera.CFrame = CFrame.lookAt(Vector3.new(0, 0, -500), Vector3.new(0, 0, 0))
 	camera.FieldOfView = 2
 
-	local MainSystem = require(game.StarterPlayer.StarterPlayerScripts.Client.Systems.MainSystem)
+	local MainSystem = require(game.StarterPlayer.StarterPlayerScripts.Client.MainSystem)
 
 	local mainSystem = MainSystem.new(eventManager, entityManager, componentManager, world, camera, screenGui)
 	mainSystem:init()
 
 	local timeAccumulator = 0
-	local fixeddt = 1 / 30
+	local fixeddt = 1 / 60
 
 	local loop = function(self)
 		RunService.RenderStepped:Connect(function(dt)
@@ -84,7 +84,7 @@ function EngineFactory.createServerEngine()
 	local entityManager = EntityManager.new()
 	local componentManager = ComponentManager.new()
 
-	local MainSystem = require(game.ServerScriptService.Server.Systems.MainSystem)
+	local MainSystem = require(game.ServerScriptService.Server.MainSystem)
 
 	local mainSystem = MainSystem.new(
 		eventManager,

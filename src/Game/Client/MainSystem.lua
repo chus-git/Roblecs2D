@@ -5,7 +5,12 @@ function MainSystem:init()
 	self.sceneManagerSystem = self:create(game.ReplicatedStorage.Modules.Essentials.Systems.SceneManagerSystem)
 
 	self.sceneManagerSystem:loadScene({
-		script.Parent.Scenes.SelectExperienceMenu.ExperienceGridSystem,
+		script.Parent.Systems.PlayerSystem,
+		game.ReplicatedStorage.Modules.Essentials.Systems.SpriteManagerSystem,
+		game.ReplicatedStorage.Modules.Essentials.Systems.InterpolationSystem,
+		game.ReplicatedStorage.Modules.Essentials.Systems.RenderSystem,
+		game.ReplicatedStorage.Modules.Physics.Systems.PhysicsSystem,
+		
 	})
 	
 end
