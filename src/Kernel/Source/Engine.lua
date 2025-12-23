@@ -16,9 +16,7 @@ function Engine:start()
 end
 
 function Engine:update(dt: number)
-	self.mainSystem:beforeUpdate(dt)
 	self.mainSystem:update(dt)
-	self.mainSystem:afterUpdate(dt)
 	self.eventManager:flush()
 end
 

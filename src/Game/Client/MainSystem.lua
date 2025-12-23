@@ -15,16 +15,8 @@ function MainSystem:init()
 	
 end
 
-function MainSystem:beforeUpdate(dt)
-	self.sceneManagerSystem:beforeUpdate(dt)
-end
-
 function MainSystem:update(dt)
 	self.sceneManagerSystem:update(dt)
-end
-
-function MainSystem:afterUpdate(dt)
-	self.sceneManagerSystem:afterUpdate(dt)
 end
 
 function MainSystem:render(dt, alpha)

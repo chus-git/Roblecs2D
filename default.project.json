@@ -5,6 +5,8 @@
     "ReplicatedStorage": {
       "Source": { "$path": "src/Kernel/Source" },
       "Modules" : { "$path": "src/Modules" },
+      "Assets": { "$path": "src/Game/Shared/Assets" },
+      "Archetypes": { "$path": "src/Game/Shared/Archetypes" },
       "GameEventManager": { "$className": "RemoteEvent" }
     },
     "ServerScriptService": {

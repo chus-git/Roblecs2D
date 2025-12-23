@@ -31,21 +31,9 @@ function SceneManagerSystem:loadScene(SystemModules)
 	
 end
 
-function SceneManagerSystem:beforeUpdate(dt)
-	for _, system in ipairs(self.systems) do
-		system:beforeUpdate(dt)
-	end
-end
-
 function SceneManagerSystem:update(dt)
 	for _, system in ipairs(self.systems) do
 		system:update(dt)
-	end
-end
-
-function SceneManagerSystem:afterUpdate(dt)
-	for _, system in ipairs(self.systems) do
-		system:afterUpdate(dt)
 	end
 end
 

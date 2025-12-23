@@ -25,7 +25,7 @@ function SpriteManagerSystem:update(dt)
     local entities = self:getEntitiesWithComponent(SpriteComponent)
 
     for _, entityId in pairs(entities) do
-        print("SPRITE MANAGER SYSTEM - ENTITY ID:", entityId)
+
         local spriteComponent = self:getComponent(entityId, SpriteComponent)
 
         -- Position components
@@ -75,9 +75,8 @@ function SpriteManagerSystem:update(dt)
         self.images[entityId] = self:createImage(spriteComponent.imageId, positionComponent.x, positionComponent.y, sizeComponent.width, sizeComponent.height)
        
         self:removeComponent(entityId, SpriteComponent) -- Eliminamos el componente SpriteComponent al ser ya inicializado
-        print("IMAGEN CREADA")
-    end
 
+    end
 
 end
 

@@ -9,7 +9,7 @@ function PlayerSystem:init()
 	self.player = self:createEntity()
 
     -- Añadir Sprite del jugador
-    self:addComponent(self.player, SpriteComponent("rbxassetid://132488562992832"))
+    self:addComponent(self.player, SpriteComponent(game.ReplicatedStorage.Assets.Sprites.PLAYER))
 
     -- Añadir componente velocidad del jugador
     self.playerVelocity = self:addComponent(self.player, VelocityComponent(0, 0))

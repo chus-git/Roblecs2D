@@ -48,15 +48,7 @@ function System:load()
 	--
 end
 
-function System:beforeUpdate(dt)
-	--
-end
-
 function System:update(dt)
-	--
-end
-
-function System:afterUpdate(dt)
 	--
 end
 
