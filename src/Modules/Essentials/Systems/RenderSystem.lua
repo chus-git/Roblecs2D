@@ -21,7 +21,7 @@ function RenderSystem:renderPosition(dt, alpha)
 
 	local entitiesWithRenderPositionComponent = self:getEntitiesWithComponent(RenderPositionComponent)
 
-	for _, entity in ipairs(entitiesWithRenderPositionComponent) do
+	for _, entity in pairs(entitiesWithRenderPositionComponent) do
 
         local positionInterpolationComponent = self:getComponent(entity, PositionInterpolationComponent)
 		local renderPositionComponent = self:getComponent(entity, RenderPositionComponent)
@@ -37,7 +37,7 @@ function RenderSystem:renderRotation(dt, alpha)
 
 	local entitiesWithRenderRotationComponent = self:getEntitiesWithComponent(RenderRotationComponent)
 
-	for _, entity in ipairs(entitiesWithRenderRotationComponent) do
+	for _, entity in pairs(entitiesWithRenderRotationComponent) do
 
         local rotationInterpolationComponent = self:getComponent(entity, RotationInterpolationComponent)
 		local renderRotationComponent = self:getComponent(entity, RenderRotationComponent)
@@ -52,7 +52,7 @@ function RenderSystem:renderSize(dt, alpha)
 
 	local entitiesWithRenderSizeComponent = self:getEntitiesWithComponent(RenderSizeComponent)
 
-	for _, entity in ipairs(entitiesWithRenderSizeComponent) do
+	for _, entity in pairs(entitiesWithRenderSizeComponent) do
 
 		local sizeInterpolationComponent = self:getComponent(entity, SizeInterpolationComponent)
 		local renderSizeComponent = self:getComponent(entity, RenderSizeComponent)

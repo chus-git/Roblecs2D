@@ -14,9 +14,18 @@ local SizeInterpolationComponent = require(game.ReplicatedStorage.Modules.Essent
 
 local SpriteManagerSystem = require(game.ReplicatedStorage.Source.System).extend()
 
+local DestroyEntityEvent = require(game.ReplicatedStorage.Events.DestroyEntityEvent)
+
 function SpriteManagerSystem:init()
 
     self.images = {}
+
+    self:onFire(DestroyEntityEvent, function(entityId)
+        if self.images[entityId] then
+            self.images[entityId].Parent.Parent:Destroy()
+            self.images[entityId] = nil
+        end
+    end)
 	
 end
 

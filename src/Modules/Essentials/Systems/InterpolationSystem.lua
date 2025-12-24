@@ -23,7 +23,7 @@ function InterpolationSystem:interpolatePosition()
 
 	local entitiesWithPositionInterpolationComponent = self:getEntitiesWithComponent(PositionInterpolationComponent)
 
-	for _, entity in ipairs(entitiesWithPositionInterpolationComponent) do
+	for _, entity in pairs(entitiesWithPositionInterpolationComponent) do
 
 		local positionComponent = self:getComponent(entity, PositionComponent)
 		local positionInterpolationComponent = self:getComponent(entity, PositionInterpolationComponent)
@@ -42,7 +42,7 @@ function InterpolationSystem:interpolateRotation()
 
 	local entitiesWithRotationInterpolationComponent = self:getEntitiesWithComponent(RotationInterpolationComponent)
 
-	for _, entity in ipairs(entitiesWithRotationInterpolationComponent) do
+	for _, entity in pairs(entitiesWithRotationInterpolationComponent) do
 
 		local rotationComponent = self:getComponent(entity, RotationComponent)
 		local rotationInterpolationComponent = self:getComponent(entity, RotationInterpolationComponent)
@@ -59,7 +59,7 @@ function InterpolationSystem:interpolateSize()
 
 	local entitiesWithSizeInterpolationComponent = self:getEntitiesWithComponent(SizeInterpolationComponent)
 
-	for _, entity in ipairs(entitiesWithSizeInterpolationComponent) do
+	for _, entity in pairs(entitiesWithSizeInterpolationComponent) do
 
 		local sizeComponent = self:getComponent(entity, SizeComponent)
 		local sizeInterpolationComponent = self:getComponent(entity, SizeInterpolationComponent)

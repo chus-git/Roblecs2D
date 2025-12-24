@@ -105,6 +105,10 @@ function System:createEntity()
 	return self.entityManager:createEntity()
 end
 
+function System:getEntityWithComponent(componentName)
+	return next(self.componentManager:getEntitiesWithComponent(componentName))
+end
+
 function System:getEntitiesWithComponent(componentName)
 	return self.componentManager:getEntitiesWithComponent(componentName)
 end

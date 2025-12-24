@@ -13,7 +13,7 @@ function PhysicsSystem:update(dt)
 
     -- Actualizar velocidad de entidades con masa
     local entitiesWithMass = self:getEntitiesWithComponent(MassComponent)
-    for _, entity in ipairs(entitiesWithMass) do
+    for _, entity in pairs(entitiesWithMass) do
 
         local position = self:getComponent(entity, PositionComponent)
         local mass = self:getComponent(entity, MassComponent)
@@ -30,7 +30,7 @@ function PhysicsSystem:update(dt)
 
     -- Actualizar posición de entidades con velocidad
     local entitiesWithVelocity = self:getEntitiesWithComponent(VelocityComponent)
-    for _, entity in ipairs(entitiesWithVelocity) do
+    for _, entity in pairs(entitiesWithVelocity) do
 
         local position = self:getComponent(entity, PositionComponent)
         local velocity = self:getComponent(entity, VelocityComponent)
