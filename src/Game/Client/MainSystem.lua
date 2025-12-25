@@ -6,7 +6,6 @@ function MainSystem:init()
 
 	self.sceneManagerSystem:loadScene({
 
-
 		game.ReplicatedStorage.Modules.Physics.Systems.CollisionSystem,
 
 		script.Parent.Systems.BallGeneratorSystem,
@@ -15,6 +14,8 @@ function MainSystem:init()
 		script.Parent.Systems.MovementSystem,
 		script.Parent.Systems.BoundingSystem,
 		script.Parent.Systems.BallCollisionSystem,
+		script.Parent.Systems.BackgroundSystem,
+		script.Parent.Systems.SimulationControlSystem,
 
 		game.ReplicatedStorage.Modules.Essentials.Systems.SpriteManagerSystem,
 		game.ReplicatedStorage.Modules.Essentials.Systems.InterpolationSystem,

@@ -7,11 +7,22 @@ local SizeComponent = require(game.ReplicatedStorage.Modules.Essentials.Componen
 local CircleColliderComponent = require(game.ReplicatedStorage.Modules.Physics.Components.CircleColliderComponent)
 
 local OnCollideEvent = require(game.ReplicatedStorage.Modules.Physics.Events.OnCollideEvent)
+local ToggleCollisionsEvent = require(game.ReplicatedStorage.Events.ToggleCollisionsEvent)
 
 function BallCollisionSystem:init()
 
+    self.collisionsEnabled = true
+
+    self:on(ToggleCollisionsEvent, function(enabled)
+        self.collisionsEnabled = enabled
+    end)
+
     self:onFire(OnCollideEvent, function(entityA, entityB)
         
+        if not self.collisionsEnabled then
+            return
+        end
+
         local isBallA = self:hasComponent(entityA, BallTagComponent)
         local isBallB = self:hasComponent(entityB, BallTagComponent)
 
@@ -60,6 +71,7 @@ function BallCollisionSystem:init()
             end
         end
     end)
+    
 end
 
 return BallCollisionSystem

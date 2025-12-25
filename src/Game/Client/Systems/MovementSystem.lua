@@ -6,24 +6,38 @@ local PositionComponent = require(game.ReplicatedStorage.Modules.Essentials.Comp
 local VelocityComponent = require(game.ReplicatedStorage.Modules.Physics.Components.VelocityComponent)
 local AccelerationComponent = require(game.ReplicatedStorage.Modules.Physics.Components.AccelerationComponent)
 
+local ChangeSimulationSpeedEvent = require(game.ReplicatedStorage.Events.ChangeSimulationSpeedEvent)
+
+function MovementSystem:init()
+
+    self.simulationSpeed = 1
+
+    self:on(ChangeSimulationSpeedEvent, function(speed)
+        if speed == nil then
+            speed = 1
+        end
+        self.simulationSpeed = speed
+    end)
+
+end
+
 function MovementSystem:update(dt)
     
+    local realDt = dt * self.simulationSpeed
+
     local balls = self:getEntitiesWithComponent(BallTagComponent)
 
     for _, ball in pairs(balls) do
 
-        -- Move the ball due to its velocity calculated from acceleration
         local positionComponent = self:getComponent(ball, PositionComponent)
         local velocityComponent = self:getComponent(ball, VelocityComponent)
         local accelerationComponent = self:getComponent(ball, AccelerationComponent)
 
-        -- Update velocity based on acceleration
-        velocityComponent.x = velocityComponent.x + accelerationComponent.x * dt
-        velocityComponent.y = velocityComponent.y + accelerationComponent.y * dt
+        velocityComponent.x = velocityComponent.x + accelerationComponent.x * realDt
+        velocityComponent.y = velocityComponent.y + accelerationComponent.y * realDt
 
-        -- Update position based on velocity
-        positionComponent.x = positionComponent.x + velocityComponent.x * dt
-        positionComponent.y = positionComponent.y + velocityComponent.y * dt
+        positionComponent.x = positionComponent.x + velocityComponent.x * realDt
+        positionComponent.y = positionComponent.y + velocityComponent.y * realDt
 
     end
 
