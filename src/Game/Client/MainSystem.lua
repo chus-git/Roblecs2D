@@ -6,22 +6,15 @@ function MainSystem:init()
 
 	self.sceneManagerSystem:loadScene({
 
-		script.Parent.Systems.Player.PlayerInitializationSystem,
 
 		game.ReplicatedStorage.Modules.Physics.Systems.CollisionSystem,
-		script.Parent.Systems.GunInitializationSystem,
 
-		script.Parent.Systems.Player.PlayerMovementSystem,
-		script.Parent.Systems.Enemy.EnemyMovementSystem,
-		script.Parent.Systems.Enemy.EnemySpawnSystem,
-		script.Parent.Systems.CollisionResolverSystem,
+		script.Parent.Systems.BallGeneratorSystem,
+		script.Parent.Systems.ContainerSystem,
+		script.Parent.Systems.GravitySystem,
 		script.Parent.Systems.MovementSystem,
-		script.Parent.Systems.GunMovementSystem,
-
-		script.Parent.Systems.ShootingSystem,
-		script.Parent.Systems.BulletHealthSystem,
-		script.Parent.Systems.BulletCollisionSystem,
-		script.Parent.Systems.Enemy.EnemyDeathSystem,
+		script.Parent.Systems.BoundingSystem,
+		script.Parent.Systems.BallCollisionSystem,
 
 		game.ReplicatedStorage.Modules.Essentials.Systems.SpriteManagerSystem,
 		game.ReplicatedStorage.Modules.Essentials.Systems.InterpolationSystem,

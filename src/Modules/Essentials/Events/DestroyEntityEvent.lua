@@ -2,8 +2,8 @@ local DestroyEntityEvent = require(game.ReplicatedStorage.Source.Event).extend()
 
 DestroyEntityEvent.name = "DestroyEntityEvent"
 
-DestroyEntityEvent.constructor = function(id)
-	return id
+DestroyEntityEvent.constructor = function(entityId)
+	return entityId
 end
 
 return DestroyEntityEvent

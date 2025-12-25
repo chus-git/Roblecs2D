@@ -1,43 +1,32 @@
 local MovementSystem = require(game.ReplicatedStorage.Source.System).extend()
+
+local BallTagComponent = require(game.ReplicatedStorage.Components.BallTagComponent)
+
 local PositionComponent = require(game.ReplicatedStorage.Modules.Essentials.Components.PositionComponent)
 local VelocityComponent = require(game.ReplicatedStorage.Modules.Physics.Components.VelocityComponent)
 local AccelerationComponent = require(game.ReplicatedStorage.Modules.Physics.Components.AccelerationComponent)
 
 function MovementSystem:update(dt)
-
-    local entities = self:getEntitiesWithComponent(VelocityComponent)
-
-    local maxSpeed = 100          -- velocidad máxima absoluta
     
-    for _, entity in pairs(entities) do
-        
-        local position = self:getComponent(entity, PositionComponent)
-        local velocity = self:getComponent(entity, VelocityComponent)
-        local acceleration = self:getComponent(entity, AccelerationComponent)
+    local balls = self:getEntitiesWithComponent(BallTagComponent)
 
-        -- integrar aceleración → velocidad
-        velocity.x = velocity.x + acceleration.x * dt
-        velocity.y = velocity.y + acceleration.y * dt
+    for _, ball in pairs(balls) do
 
-        -- clamp de velocidad
-        local speedSq = velocity.x * velocity.x + velocity.y * velocity.y
-        local maxSpeedSq = maxSpeed * maxSpeed
+        -- Move the ball due to its velocity calculated from acceleration
+        local positionComponent = self:getComponent(ball, PositionComponent)
+        local velocityComponent = self:getComponent(ball, VelocityComponent)
+        local accelerationComponent = self:getComponent(ball, AccelerationComponent)
 
-        if speedSq > maxSpeedSq then
-            local speed = math.sqrt(speedSq)
-            velocity.x = velocity.x / speed * maxSpeed
-            velocity.y = velocity.y / speed * maxSpeed
-        end
+        -- Update velocity based on acceleration
+        velocityComponent.x = velocityComponent.x + accelerationComponent.x * dt
+        velocityComponent.y = velocityComponent.y + accelerationComponent.y * dt
 
-        -- integrar velocidad → posición
-        position.x = position.x + velocity.x * dt
-        position.y = position.y + velocity.y * dt
-
-        -- limpiar aceleración
-        acceleration.x = 0
-        acceleration.y = 0
+        -- Update position based on velocity
+        positionComponent.x = positionComponent.x + velocityComponent.x * dt
+        positionComponent.y = positionComponent.y + velocityComponent.y * dt
 
     end
+
 end
 
 return MovementSystem
