@@ -9,11 +9,12 @@ local GunTagComponent = require(game.ReplicatedStorage.Components.GunTagComponen
 local BulletTagComponent = require(game.ReplicatedStorage.Components.BulletTagComponent)
 local HealthPointsComponent = require(game.ReplicatedStorage.Components.HealthPointsComponent)
 local CircleColliderComponent = require(game.ReplicatedStorage.Modules.Physics.Components.CircleColliderComponent)
+local SizeComponent = require(game.ReplicatedStorage.Modules.Essentials.Components.SizeComponent)
 local OnShootEvent = require(game.ReplicatedStorage.Events.OnShootEvent)
 local Sprites = require(game.ReplicatedStorage.Assets.Sprites)
 
-local BULLET_SPEED = 10
-local FIRE_RATE = 0.1
+local BULLET_SPEED = 20
+local FIRE_RATE = 0.25
 
 function ShootingSystem:init()
 	self.cooldownTimer = 0
@@ -28,6 +29,7 @@ function ShootingSystem:shoot(position, direction, angle)
 	self:addComponent(bullet, AccelerationComponent(0, 0))
     self:addComponent(bullet, HealthPointsComponent(10))
     self:addComponent(bullet, CircleColliderComponent(0.5))
+	self:addComponent(bullet, SizeComponent(0.5, 0.5))
 	
 	local velocityX = direction.x * BULLET_SPEED
 	local velocityY = direction.y * BULLET_SPEED

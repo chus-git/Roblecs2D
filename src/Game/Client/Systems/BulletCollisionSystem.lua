@@ -31,6 +31,9 @@ function BulletCollisionSystem:handleBulletEnemyCollision(bullet, enemy)
     local bulletHealth = self:getComponent(bullet, HealthPointsComponent)
 	bulletHealth.currentHealth = 0
 
+	local enemyHealth = self:getComponent(enemy, HealthPointsComponent)
+	enemyHealth.currentHealth = enemyHealth.currentHealth - 1
+
 end
 
 return BulletCollisionSystem

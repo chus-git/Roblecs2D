@@ -7,6 +7,7 @@ local VelocityComponent = require(game.ReplicatedStorage.Modules.Physics.Compone
 local SpeedComponent = require(game.ReplicatedStorage.Components.SpeedComponent)
 local CircleColliderComponent = require(game.ReplicatedStorage.Modules.Physics.Components.CircleColliderComponent)
 local AccelerationComponent = require(game.ReplicatedStorage.Modules.Physics.Components.AccelerationComponent)
+local HealthPointsComponent = require(game.ReplicatedStorage.Components.HealthPointsComponent)
 
 local Sprites = require(game.ReplicatedStorage.Assets.Sprites)
 
@@ -18,8 +19,9 @@ function EnemySpawnSystem:spawn()
     self:addComponent(enemy, PositionComponent(math.random(-5, 5), math.random(-5, 5)))
     self:addComponent(enemy, VelocityComponent(0, 0))
     self:addComponent(enemy, AccelerationComponent(0, 0))
-    self:addComponent(enemy, SpeedComponent(1))
+    self:addComponent(enemy, SpeedComponent(2))
     self:addComponent(enemy, CircleColliderComponent(0.5))
+    self:addComponent(enemy, HealthPointsComponent(3))
 
 end
 

@@ -7,7 +7,7 @@ function MovementSystem:update(dt)
 
     local entities = self:getEntitiesWithComponent(VelocityComponent)
 
-    local maxSpeed = 5          -- velocidad máxima absoluta
+    local maxSpeed = 100          -- velocidad máxima absoluta
     
     for _, entity in pairs(entities) do
         

@@ -21,6 +21,7 @@ function MainSystem:init()
 		script.Parent.Systems.ShootingSystem,
 		script.Parent.Systems.BulletHealthSystem,
 		script.Parent.Systems.BulletCollisionSystem,
+		script.Parent.Systems.Enemy.EnemyDeathSystem,
 
 		game.ReplicatedStorage.Modules.Essentials.Systems.SpriteManagerSystem,
 		game.ReplicatedStorage.Modules.Essentials.Systems.InterpolationSystem,
