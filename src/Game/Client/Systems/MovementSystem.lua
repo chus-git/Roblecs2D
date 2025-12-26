@@ -1,6 +1,6 @@
 local MovementSystem = require(game.ReplicatedStorage.Source.System).extend()
 
-local BallTagComponent = require(game.ReplicatedStorage.Components.BallTagComponent)
+local ParticleTagComponent = require(game.ReplicatedStorage.Components.ParticleTagComponent)
 
 local PositionComponent = require(game.ReplicatedStorage.Modules.Essentials.Components.PositionComponent)
 local VelocityComponent = require(game.ReplicatedStorage.Modules.Physics.Components.VelocityComponent)
@@ -25,13 +25,13 @@ function MovementSystem:update(dt)
     
     local realDt = dt * self.simulationSpeed
 
-    local balls = self:getEntitiesWithComponent(BallTagComponent)
+    local particles = self:getEntitiesWithComponent(ParticleTagComponent)
 
-    for _, ball in pairs(balls) do
+    for _, particle in pairs(particles) do
 
-        local positionComponent = self:getComponent(ball, PositionComponent)
-        local velocityComponent = self:getComponent(ball, VelocityComponent)
-        local accelerationComponent = self:getComponent(ball, AccelerationComponent)
+        local positionComponent = self:getComponent(particle, PositionComponent)
+        local velocityComponent = self:getComponent(particle, VelocityComponent)
+        local accelerationComponent = self:getComponent(particle, AccelerationComponent)
 
         velocityComponent.x = velocityComponent.x + accelerationComponent.x * realDt
         velocityComponent.y = velocityComponent.y + accelerationComponent.y * realDt

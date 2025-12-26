@@ -1,6 +1,6 @@
 local BoundingSystem = require(game.ReplicatedStorage.Source.System).extend()
 
-local BallTagComponent = require(game.ReplicatedStorage.Components.BallTagComponent)
+local ParticleTagComponent = require(game.ReplicatedStorage.Components.ParticleTagComponent)
 local ContainerTagComponent = require(game.ReplicatedStorage.Components.ContainerTagComponent)
 local PositionComponent = require(game.ReplicatedStorage.Modules.Essentials.Components.PositionComponent)
 local VelocityComponent = require(game.ReplicatedStorage.Modules.Physics.Components.VelocityComponent)
@@ -8,7 +8,7 @@ local SizeComponent = require(game.ReplicatedStorage.Modules.Essentials.Componen
 local CircleColliderComponent = require(game.ReplicatedStorage.Modules.Physics.Components.CircleColliderComponent)
 
 function BoundingSystem:update(dt)
-    local balls = self:getEntitiesWithComponent(BallTagComponent)
+    local particles = self:getEntitiesWithComponent(ParticleTagComponent)
     local container = self:getEntityWithComponent(ContainerTagComponent)
     
     if not container then return end
@@ -17,10 +17,10 @@ function BoundingSystem:update(dt)
     local cSize = self:getComponent(container, SizeComponent)
     local cRadius = cSize.width / 2
 
-    for _, ball in pairs(balls) do
-        local bPos = self:getComponent(ball, PositionComponent)
-        local bVel = self:getComponent(ball, VelocityComponent)
-        local bRadius = self:getComponent(ball, CircleColliderComponent).radius
+    for _, particle in pairs(particles) do
+        local bPos = self:getComponent(particle, PositionComponent)
+        local bVel = self:getComponent(particle, VelocityComponent)
+        local bRadius = self:getComponent(particle, CircleColliderComponent).radius
 
         local dx = bPos.x - cPos.x
         local dy = bPos.y - cPos.y

@@ -9,7 +9,7 @@ local SizeComponent = require(game.ReplicatedStorage.Modules.Essentials.Componen
 local PositionComponent = require(game.ReplicatedStorage.Modules.Essentials.Components.PositionComponent)
 
 -- Eventos
-local GenerateBallEvent = require(game.ReplicatedStorage.Events.GenerateBallEvent)
+local GenerateParticleEvent = require(game.ReplicatedStorage.Events.GenerateParticleEvent)
 
 function ContainerSystem:init()
     -- 1. ECS Entity
@@ -73,7 +73,7 @@ function ContainerSystem:init()
                 local hitPos = raycastResult.Position
                 -- Convertimos la posición 3D de Roblox a tu espacio 2D de simulación
                 -- Nota: Usamos hitPos.X y hitPos.Y directamente porque el plano está en Z=0
-                self:emit(GenerateBallEvent(-hitPos.X, hitPos.Y))
+                self:emit(GenerateParticleEvent(-hitPos.X, hitPos.Y))
             end
         end
     end)

@@ -1,6 +1,6 @@
-local BallCollisionSystem = require(game.ReplicatedStorage.Source.System).extend()
+local ParticleCollisionSystem = require(game.ReplicatedStorage.Source.System).extend()
 
-local BallTagComponent = require(game.ReplicatedStorage.Components.BallTagComponent)
+local ParticleTagComponent = require(game.ReplicatedStorage.Components.ParticleTagComponent)
 local PositionComponent = require(game.ReplicatedStorage.Modules.Essentials.Components.PositionComponent)
 local VelocityComponent = require(game.ReplicatedStorage.Modules.Physics.Components.VelocityComponent)
 local SizeComponent = require(game.ReplicatedStorage.Modules.Essentials.Components.SizeComponent)
@@ -9,7 +9,7 @@ local CircleColliderComponent = require(game.ReplicatedStorage.Modules.Physics.C
 local OnCollideEvent = require(game.ReplicatedStorage.Modules.Physics.Events.OnCollideEvent)
 local ToggleCollisionsEvent = require(game.ReplicatedStorage.Events.ToggleCollisionsEvent)
 
-function BallCollisionSystem:init()
+function ParticleCollisionSystem:init()
 
     self.collisionsEnabled = true
 
@@ -23,10 +23,10 @@ function BallCollisionSystem:init()
             return
         end
 
-        local isBallA = self:hasComponent(entityA, BallTagComponent)
-        local isBallB = self:hasComponent(entityB, BallTagComponent)
+        local isParticleA = self:hasComponent(entityA, ParticleTagComponent)
+        local isParticleB = self:hasComponent(entityB, ParticleTagComponent)
 
-        if isBallA and isBallB then
+        if isParticleA and isParticleB then
             local posA = self:getComponent(entityA, PositionComponent)
             local velA = self:getComponent(entityA, VelocityComponent)
             local radiusA = self:getComponent(entityA, CircleColliderComponent).radius
@@ -74,4 +74,4 @@ function BallCollisionSystem:init()
     
 end
 
-return BallCollisionSystem
+return ParticleCollisionSystem

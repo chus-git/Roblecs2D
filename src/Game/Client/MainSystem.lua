@@ -8,12 +8,12 @@ function MainSystem:init()
 
 		game.ReplicatedStorage.Modules.Physics.Systems.CollisionSystem,
 
-		script.Parent.Systems.BallGeneratorSystem,
+		script.Parent.Systems.ParticleGeneratorSystem,
 		script.Parent.Systems.ContainerSystem,
 		script.Parent.Systems.GravitySystem,
 		script.Parent.Systems.MovementSystem,
 		script.Parent.Systems.BoundingSystem,
-		script.Parent.Systems.BallCollisionSystem,
+		script.Parent.Systems.ParticleCollisionSystem,
 		script.Parent.Systems.BackgroundSystem,
 		script.Parent.Systems.SimulationControlSystem,
 
