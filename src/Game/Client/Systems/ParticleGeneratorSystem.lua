@@ -17,10 +17,11 @@ local Camera = Workspace.CurrentCamera
 local GenerateParticleEvent = require(game.ReplicatedStorage.Events.GenerateParticleEvent)
 
 function ParticleGeneratorSystem:init()
+
     self:on(GenerateParticleEvent, function(x: number, y: number)
         self:generateParticle(Vector2.new(x, y))
     end)
-    self:generateParticle(Vector2.new(1, 5))
+
 end
 
 function ParticleGeneratorSystem:generateParticle(position: Vector2)
@@ -30,8 +31,8 @@ function ParticleGeneratorSystem:generateParticle(position: Vector2)
     self:addComponent(particle, PositionComponent(position.X, position.Y))
     self:addComponent(particle, VelocityComponent(0, 0))
     self:addComponent(particle, AccelerationComponent(0, 0))
-    self:addComponent(particle, SizeComponent(1, 1))
-    self:addComponent(particle, CircleColliderComponent(0.5))
+    self:addComponent(particle, SizeComponent(0.5, 0.5))
+    self:addComponent(particle, CircleColliderComponent(0.25))
 end
 
 return ParticleGeneratorSystem
