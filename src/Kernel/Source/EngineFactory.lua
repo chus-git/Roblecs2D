@@ -46,7 +46,7 @@ function EngineFactory.createClientEngine()
 	mainSystem:init()
 
 	local timeAccumulator = 0
-	local fixeddt = 1 / 60
+	local fixeddt = 1 / 30
 
 	local loop = function(self)
 		RunService.RenderStepped:Connect(function(dt)
